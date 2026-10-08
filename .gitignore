@@ -1,0 +1,11 @@
+node_modules/
+.env
+.env.local
+.DS_Store
+Thumbs.db
+
+# Full-resolution originals — keep these out of git history.
+# Compress into pic/<year>/ with `npm run photos`, and upload the
+# originals to Supabase storage.
+originals/
+*.orig.jpg
