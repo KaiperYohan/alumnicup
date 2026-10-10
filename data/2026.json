@@ -1,19 +1,44 @@
 {
   "_comment": "Edit this file to publish results. Then run: npm run build:results",
   "year": 2026,
-
   "schools": [
-    { "code": "texas",     "emoji": "🤘", "name_en": "University of Texas",      "name_ko": "텍사스 대학교",        "short_en": "Texas",     "short_ko": "텍사스" },
-    { "code": "michigan",  "emoji": "〽️", "name_en": "University of Michigan",   "name_ko": "미시간 대학교",        "short_en": "Michigan",  "short_ko": "미시간" },
-    { "code": "wisconsin", "emoji": "🦡", "name_en": "University of Wisconsin",  "name_ko": "위스콘신 대학교",      "short_en": "Wisconsin", "short_ko": "위스콘신" },
-    { "code": "berkeley",  "emoji": "🐻", "name_en": "UC Berkeley",              "name_ko": "캘리포니아 대학교 버클리", "short_en": "Berkeley",  "short_ko": "버클리" }
+    {
+      "code": "texas",
+      "emoji": "🤘",
+      "name_en": "University of Texas",
+      "name_ko": "텍사스 대학교",
+      "short_en": "Texas",
+      "short_ko": "텍사스"
+    },
+    {
+      "code": "michigan",
+      "emoji": "〽️",
+      "name_en": "University of Michigan",
+      "name_ko": "미시간 대학교",
+      "short_en": "Michigan",
+      "short_ko": "미시간"
+    },
+    {
+      "code": "wisconsin",
+      "emoji": "🦡",
+      "name_en": "University of Wisconsin",
+      "name_ko": "위스콘신 대학교",
+      "short_en": "Wisconsin",
+      "short_ko": "위스콘신"
+    },
+    {
+      "code": "berkeley",
+      "emoji": "🐻",
+      "name_en": "UC Berkeley",
+      "name_ko": "캘리포니아 대학교 버클리",
+      "short_en": "Berkeley",
+      "short_ko": "버클리"
+    }
   ],
-
   "events": [
     {
       "sport": "golf",
-      "status": "pending",
-      "_status_note": "Change to \"completed\" once scores are entered, then rebuild.",
+      "status": "completed",
       "date": "2026-10-10",
       "title_en": "⛳ Golf Championship",
       "title_ko": "⛳ 골프 챔피언십",
@@ -22,33 +47,256 @@
       "scoring": {
         "order": "asc",
         "_order_note": "asc = lower score is better (strokes)",
-        "rank_points": [3.89, 3.70, 3.52, 3.33, 3.15, 2.96, 2.78, 2.59, 2.41, 2.22, 2.04, 1.85, 1.67, 1.48, 1.30, 1.11],
-        "team_match_points": { "win": 1.50, "loss": 1.00 }
+        "rank_points": [
+          3.89,
+          3.7,
+          3.52,
+          3.33,
+          3.15,
+          2.96,
+          2.78,
+          2.59,
+          2.41,
+          2.22,
+          2.04,
+          1.85,
+          1.67,
+          1.48,
+          1.3,
+          1.11
+        ],
+        "team_match_points": {
+          "win": 1.5,
+          "loss": 1
+        }
       },
-
       "competitive": [
-        { "_example": "Delete these examples and add the real 16. 4 per school." },
-        { "name": "", "school": "texas",     "score": null },
-        { "name": "", "school": "michigan",  "score": null },
-        { "name": "", "school": "wisconsin", "score": null },
-        { "name": "", "school": "berkeley",  "score": null }
+        {
+          "name": "전재형",
+          "school": "berkeley",
+          "score": 78
+        },
+        {
+          "name": "윤준혁",
+          "school": "wisconsin",
+          "score": 82
+        },
+        {
+          "name": "유명석",
+          "school": "berkeley",
+          "score": 83
+        },
+        {
+          "name": "김현수",
+          "school": "texas",
+          "score": 84
+        },
+        {
+          "name": "김수환",
+          "school": "michigan",
+          "score": 85
+        },
+        {
+          "name": "김한승",
+          "school": "michigan",
+          "score": 87
+        },
+        {
+          "name": "한재선",
+          "school": "berkeley",
+          "score": 89,
+          "rank": 7,
+          "points": 2.78
+        },
+        {
+          "name": "고운",
+          "school": "berkeley",
+          "score": 89,
+          "rank": 8,
+          "points": 2.59
+        },
+        {
+          "name": "장강호",
+          "school": "wisconsin",
+          "score": 91
+        },
+        {
+          "name": "김희원",
+          "school": "texas",
+          "score": 92
+        },
+        {
+          "name": "엄신철",
+          "school": "wisconsin",
+          "score": 94,
+          "rank": 11,
+          "points": 2.04
+        },
+        {
+          "name": "손흥락",
+          "school": "wisconsin",
+          "score": 94,
+          "rank": 12,
+          "points": 1.85
+        },
+        {
+          "name": "손혁원",
+          "school": "texas",
+          "score": 99
+        },
+        {
+          "name": "김희준",
+          "school": "texas",
+          "score": 100
+        },
+        {
+          "name": "박도현",
+          "school": "michigan",
+          "score": 101
+        },
+        {
+          "name": "부성연",
+          "school": "michigan",
+          "score": 113
+        }
       ],
-
       "recreational": [
         {
-          "_example": "4 matches. Mark the winning school with \"result\": \"win\".",
           "match": 1,
           "teams": [
-            { "school": "texas",    "result": "win",  "players": [{ "name": "", "score": null }] },
-            { "school": "michigan", "result": "loss", "players": [{ "name": "", "score": null }] }
+            {
+              "school": "texas",
+              "result": "loss",
+              "players": [
+                {
+                  "name": "조기웅",
+                  "score": 117
+                },
+                {
+                  "name": "이정승",
+                  "score": 104
+                }
+              ]
+            },
+            {
+              "school": "berkeley",
+              "result": "win",
+              "players": [
+                {
+                  "name": "김신한",
+                  "score": 94
+                },
+                {
+                  "name": "변스티브",
+                  "score": 107
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "match": 2,
+          "teams": [
+            {
+              "school": "texas",
+              "result": "win",
+              "players": [
+                {
+                  "name": "박준용",
+                  "score": 87
+                },
+                {
+                  "name": "김건희",
+                  "score": 88
+                }
+              ]
+            },
+            {
+              "school": "berkeley",
+              "result": "loss",
+              "players": [
+                {
+                  "name": "이기두",
+                  "score": 101
+                },
+                {
+                  "name": "신양호",
+                  "score": 94
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "match": 3,
+          "teams": [
+            {
+              "school": "michigan",
+              "result": "loss",
+              "players": [
+                {
+                  "name": "장용재",
+                  "score": 98
+                },
+                {
+                  "name": "고연경",
+                  "score": 108
+                }
+              ]
+            },
+            {
+              "school": "wisconsin",
+              "result": "win",
+              "players": [
+                {
+                  "name": "김태승",
+                  "score": 96
+                },
+                {
+                  "name": "박홍무",
+                  "score": 85
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "match": 4,
+          "teams": [
+            {
+              "school": "michigan",
+              "result": "loss",
+              "players": [
+                {
+                  "name": "안성진",
+                  "score": 94
+                },
+                {
+                  "name": "신유진",
+                  "score": 99
+                }
+              ]
+            },
+            {
+              "school": "wisconsin",
+              "result": "win",
+              "players": [
+                {
+                  "name": "김정욱",
+                  "score": 83
+                },
+                {
+                  "name": "박현중",
+                  "score": 89
+                }
+              ]
+            }
           ]
         }
       ],
-
       "rules_en": "- 16 individual matches (4 per school, competitive)\n- Ranks 1-16 earn 3.89 down to 1.11 points, 40 points total\n- 4 recreational team matches: winning team 1.50, losing team 1.00, 10 points total\n- Grand total: 50 points",
       "rules_ko": "- 16명 개인전 (학교당 4명, 선수부)\n- 1~16위까지 3.89부터 1.11까지 차등 배점, 총 40점\n- 일반부 4팀 매치: 이긴 팀 1.50점, 진 팀 1.00점, 총 10점\n- 골프 총점: 50점"
     },
-
     {
       "sport": "run",
       "status": "pending",
@@ -60,24 +308,73 @@
       "scoring": {
         "order": "asc",
         "_order_note": "asc = faster time is better. Enter times as H:MM:SS or MM:SS.",
-        "rank_points": [1.50, 1.47, 1.45, 1.42, 1.40, 1.37, 1.35, 1.32, 1.29, 1.27,
-                        1.24, 1.22, 1.19, 1.17, 1.14, 1.12, 1.09, 1.07, 1.04, 1.01,
-                        0.99, 0.96, 0.94, 0.91, 0.88, 0.86, 0.83, 0.81, 0.78, 0.76,
-                        0.73, 0.71, 0.68, 0.66, 0.63, 0.61, 0.58, 0.55, 0.53, 0.50],
-        "place_bonus":  { "1": 1.77, "2": 1.20, "3": 1.00 },
-        "school_bonus": { "1": 3.00, "2": 2.00, "3": 1.00 }
+        "rank_points": [
+          1.5,
+          1.47,
+          1.45,
+          1.42,
+          1.4,
+          1.37,
+          1.35,
+          1.32,
+          1.29,
+          1.27,
+          1.24,
+          1.22,
+          1.19,
+          1.17,
+          1.14,
+          1.12,
+          1.09,
+          1.07,
+          1.04,
+          1.01,
+          0.99,
+          0.96,
+          0.94,
+          0.91,
+          0.88,
+          0.86,
+          0.83,
+          0.81,
+          0.78,
+          0.76,
+          0.73,
+          0.71,
+          0.68,
+          0.66,
+          0.63,
+          0.61,
+          0.58,
+          0.55,
+          0.53,
+          0.5
+        ],
+        "place_bonus": {
+          "1": 1.77,
+          "2": 1.2,
+          "3": 1
+        },
+        "school_bonus": {
+          "1": 3,
+          "2": 2,
+          "3": 1
+        }
       },
-
       "competitive": [
-        { "_example": "40 runners, 10 per school, at least 2 female per school." },
-        { "name": "", "school": "texas", "time": null }
+        {
+          "_example": "40 runners, 10 per school, at least 2 female per school."
+        },
+        {
+          "name": "",
+          "school": "texas",
+          "time": null
+        }
       ],
-
       "rules_en": "- 40 runners (10 per school) — points by rank\n- Ranks 1-40 earn 1.50 down to 0.50 points\n- Individual place bonus: 1st +1.77, 2nd +1.20, 3rd +1.00\n- School bonus: 1st +3.00, 2nd +2.00, 3rd +1.00",
       "rules_ko": "- 40명 참가 (학교당 10명) — 순위별 배점\n- 1~40위까지 1.50부터 0.50까지 차등 배점\n- 개인 순위 보너스: 1위 +1.77, 2위 +1.20, 3위 +1.00\n- 학교 보너스: 1위 +3.00, 2위 +2.00, 3위 +1.00"
     }
   ],
-
   "photos": [
     {
       "_comment": "Run `npm run photos` first — it compresses and lists filenames for you.",

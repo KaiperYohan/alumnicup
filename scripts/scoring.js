@@ -46,7 +46,9 @@ function scoreCompetitive(event) {
   let prevVal = null, prevRank = 0;
 
   rows.forEach((r, i) => {
-    r.rank = r._v === prevVal ? prevRank : i + 1;
+    // An explicit rank breaks a tie the organisers settled on the day
+    // (e.g. countback), overriding the shared-rank default above.
+    r.rank = r.rank ?? (r._v === prevVal ? prevRank : i + 1);
     prevVal = r._v; prevRank = r.rank;
 
     if (r.points === undefined || r.points === null) {
