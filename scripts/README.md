@@ -1,6 +1,11 @@
 # Publishing results and photos
 
-One-time setup:
+The site is hosted on Vercel. Every push to `main`, and every **Publish** on
+the admin page, rebuilds it (`scripts/vercel-build.js`): published scores are
+read from Supabase and baked into `index.html`, then the public files are
+copied into `dist/`.
+
+One-time setup on this computer:
 
 ```
 npm install
@@ -8,55 +13,54 @@ npm install
 
 ## Event day
 
-**1. Photos.** Dump them off the camera/phone into any folder, then:
+**1. Scores.** Sign in at **winalumnicup.com/admin** as the owner and open
+the **Scores** tab.
+
+- Pick the event. Add players with **+ Add player**, or **+ Add rostered
+  applicants** to pull in everyone marked "rostered" on the Applications tab.
+- Enter strokes (golf) or times (`H:MM:SS`, e.g. `0:38:37`) and, for golf,
+  the recreational matches with their winners.
+- Ranks, points and the standings preview update as you type. You do **not**
+  enter ranks or points, except for a tie the organisers settled by hand:
+  put that in **Rank override** / **Pts override**.
+- **Save draft** stores the sheet without making it public. **Save &
+  publish** makes it public; the site rebuilds in about a minute.
+  **Unpublish** takes the results off the page again; the scores stay saved.
+
+**2. Photos.** Dump them off the camera/phone into any folder, then:
 
 ```
-npm run photos -- "C:/Users/letme/Desktop/UTAKA/alumni cup proj/raw-oct10"
+npm run photos -- "C:/Users/letme/Desktop/UTAKA/alumni cup proj/raw-nov15"
 ```
 
 This writes web-sized copies into `pic/2026/`, leaves the source untouched,
 and prints a JSON snippet. It bakes in EXIF rotation, so phone photos stay
-upright.
+upright. Paste the snippet into `photos[].items` in `data/2026.json`, write
+the `alt` text, and add `"position": "center 70%"` to any tall photo whose
+people get cropped out of the thumbnail. Then commit and push.
 
 **Keep the originals out of `pic/`.** Anything committed there is in git
 history permanently — that is how the repo reached 26 MB. Park the originals
-next to the repo in `originals/` (gitignored) and upload them to Supabase
-storage later.
+in `originals/` (gitignored).
 
-**2. Results.** Open `data/2026.json` and fill in:
+**To check the page locally** before pushing: `npm run build:results`, then
+open `index.html`. `npm run check:results` reports without writing.
 
-- `events[].status` → `"completed"`
-- `competitive[]` → one row per golfer/runner: `name`, `school`, and `score`
-  (golf strokes) or `time` (`"0:38:37"`)
-- `recreational[]` → the 4 team matches, marking each winner `"result": "win"`
-- `photos[].items` → paste the snippet from step 1 and write the `alt` text
+## What lives where
 
-Delete the `_example` / `_comment` rows as you go; the build ignores them, but
-they are only there as a guide.
+- **Supabase:** scores, which events are published, applications, admins.
+- **`data/2026.json`:** school names and colors, event titles, rules and
+  scoring tables, photos.
+- **`index.html`:** everything else on the page. The blocks between the
+  `BUILD:` markers are generated; don't edit inside them.
 
-You do **not** enter ranks, points or team totals — those are computed.
-
-**3. Build and check.**
-
-```
-npm run build:results
-```
-
-Open `index.html` in a browser and look at the Results section. To preview
-without writing: `npm run check:results`.
-
-**4. Publish.**
-
-```
-git add -A && git commit -m "Add 2026 golf results and photos" && git push
-```
-
-GitHub Pages rebuilds in about 40 seconds.
+Two lines on the page are still written by hand and need updating after each
+event: the announcement bar and the golf/10K event-card status.
 
 ## How scoring works
 
-`scripts/scoring.js` is the single source of truth, shared by the page builder
-and the database import so the two cannot disagree.
+`js/scoring.js` is the single source of truth, shared by the page builder,
+the database import and the admin score sheet, so they cannot disagree.
 
 - **Golf** — competitive field ranked across all schools, points from the
   table in `data/2026.json` (3.89 down to 1.11, 40 points total). Each of the
@@ -66,29 +70,39 @@ and the database import so the two cannot disagree.
   2nd +1.20, 3rd +1.00. School bonus 1st +3.00, 2nd +2.00, 3rd +1.00, applied
   on the standing before the bonus. **Total 50.**
 - **Ties** share the better rank and each tied competitor takes that rank's
-  points, matching how 2025 was scored. A tie therefore pays slightly more
-  than the nominal total.
+  points, matching how 2025 was scored, unless an override is set (2026 golf
+  broke its two ties by hand: 7th/8th on 89 and 11th/12th on 94).
 
-To override a computed number, add `"points": 2.75` to any row and it is used
-verbatim.
+## Admins
+
+Two roles, managed on the **Admins** tab (owner only):
+
+- **Owner** — everything: applications, scores, publishing, admins.
+- **Coordinator** — one school. Sees that school's applicants plus unmatched
+  ones (people who named a school that isn't in the Cup) and can match them
+  to their own school. No scores, no admin list.
+
+Add someone by email; they get access the first time they sign in at
+`/admin` with that email. Signed-in admins see an **Admin** link in the
+site's nav.
 
 ## Supabase
 
-Not yet live — the migrations have been written but never run against a real
-project. To stand it up:
+Project ref `fdkigbowuiehwmtagwlt`. Migrations in `supabase/migrations/`,
+run in order in the SQL editor (0001–0004 have been run).
 
-1. Create a project at supabase.com.
-2. Run `supabase/migrations/0001_init.sql` then `0002_rls.sql` in the SQL
-   editor, in that order.
-3. `cp .env.example .env` and fill in the URL and service role key.
-4. `npm run db:import -- --dry-run` to see the row counts, then without the
-   flag to write.
+The site talks to Supabase with the anon key (`js/supabase-config.js`,
+generated by `node scripts/write-config.js`), so every `to anon` policy is
+open to the internet. Applications are insert-only for the public, with no
+public read, so one applicant cannot pull everyone else's email and phone out
+of the table. Participants are publicly readable only for published events.
 
-`0002_rls.sql` is the file to read carefully: the site talks to Supabase with
-the anon key, so every `to anon` policy is open to the internet. Registrations
-are insert-only for the public — there is deliberately no public read policy,
-so one registrant cannot pull everyone else's email and phone out of the
-table.
+**Publish → rebuild** is wired outside the repo:
 
-Still to do: wire the registration form in `index.html` to the
-`registrations` table, and move photo serving from `pic/` to storage.
+1. Vercel → Project → Settings → Git → **Deploy Hooks**: a hook on `main`.
+2. Supabase → Database → **Webhooks**: on `events` UPDATE, HTTP POST to that
+   hook URL.
+
+`npm run db:import` copies `data/<year>.json` into Supabase. It was used once
+to load the 2026 golf results; don't re-run it for 2026, because the JSON no
+longer has scores and it would wipe the ones entered on the admin page.

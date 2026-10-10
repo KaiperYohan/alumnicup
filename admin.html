@@ -4,310 +4,785 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow">
-  <title>Alumni Cup Admin</title>
+  <title>Admin - Alumni Cup</title>
+  <link rel="icon" type="image/png" href="favicon2.png">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: Arial, sans-serif; background: #f5f5f5; padding: 20px; }
-    .container { max-width: 1000px; margin: 0 auto; background: white; padding: 30px; border-radius: 10px; }
-    h1 { color: #bf5700; margin-bottom: 10px; }
-    h2 { color: #00274c; margin: 40px 0 20px 0; padding: 15px; background: #f9f9f9; border-left: 5px solid #bf5700; }
-    h3 { color: #333; margin: 20px 0 10px 0; }
-    label { display: block; font-weight: bold; margin: 10px 0 5px 0; }
-    input, textarea { width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 5px; }
-    textarea { min-height: 100px; font-family: monospace; }
-    button { background: #bf5700; color: white; padding: 12px 24px; border: none; border-radius: 5px; cursor: pointer; margin: 10px 5px 10px 0; font-weight: bold; }
-    button:hover { background: #a04900; }
-    .btn-sm { padding: 5px 10px; font-size: 0.9em; }
-    .btn-green { background: #28a745; }
-    .btn-blue { background: #007bff; }
-    .btn-red { background: #dc3545; }
-    .info { background: #e3f2fd; padding: 12px; border-radius: 5px; margin: 10px 0; border-left: 4px solid #2196F3; font-size: 0.9em; }
-    .inst { background: #fff3cd; padding: 15px; border-radius: 5px; margin: 15px 0; border-left: 4px solid #ffc107; }
-    .inst h4 { color: #856404; margin-bottom: 10px; }
-    .inst ol { margin-left: 20px; line-height: 1.8; }
-    .inst code { background: #f8f9fa; padding: 2px 6px; border-radius: 3px; color: #d63384; }
-    .code { background: #f5f5f5; padding: 15px; border-radius: 5px; font-family: monospace; font-size: 0.85em; max-height: 400px; overflow-y: auto; white-space: pre-wrap; margin: 10px 0; display: none; border: 1px solid #ddd; }
-    .success { background: #4CAF50; color: white; padding: 10px; border-radius: 5px; margin: 10px 0; display: none; }
-    table { width: 100%; border-collapse: collapse; margin: 10px 0; }
-    th { background: #bf5700; color: white; padding: 8px; }
-    td { padding: 8px; border-bottom: 1px solid #eee; }
-    td input { padding: 5px; }
-    .divider { border-top: 3px solid #bf5700; margin: 40px 0; }
+    body { font-family: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', 'Segoe UI', sans-serif; background: #f5f5f5; color: #222; line-height: 1.5; }
+    .wrap { max-width: 1280px; margin: 0 auto; padding: 20px 16px 60px; }
+    h1 { color: #bf5700; font-size: 1.6rem; }
+    h1 a { color: inherit; text-decoration: none; }
+    h2 { color: #00274c; font-size: 1.25rem; margin-bottom: 0.6rem; }
+    h3 { color: #00274c; font-size: 1.05rem; margin: 1.2rem 0 0.5rem; }
+    .top { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.2rem; }
+    .who { color: #666; font-size: 0.9rem; margin-right: 0.5rem; }
+    .role { display: inline-block; font-size: 0.78rem; font-weight: bold; padding: 0.1rem 0.6rem; border-radius: 999px; background: #00274c; color: white; margin-right: 0.6rem; }
+    a.site { color: #bf5700; font-weight: 600; margin-right: 0.8rem; text-decoration: none; }
+    button, .btn { background: #bf5700; color: white; border: none; border-radius: 5px; padding: 0.55rem 1.1rem; font: inherit; font-weight: 600; cursor: pointer; }
+    button.ghost { background: white; color: #bf5700; border: 1px solid #bf5700; }
+    button.navy { background: #00274c; }
+    button.danger { background: white; color: #b3261e; border: 1px solid #b3261e; }
+    button.x { background: none; color: #999; padding: 0.2rem 0.5rem; font-size: 1.1rem; }
+    button.x:hover { color: #b3261e; }
+    button:disabled { opacity: 0.55; cursor: not-allowed; }
+    .card { background: white; border-radius: 10px; padding: 1.4rem; box-shadow: 0 2px 5px rgba(0,0,0,0.07); }
+    .login { max-width: 420px; margin: 4rem auto; }
+    .login h2 { margin-bottom: 0.5rem; }
+    .login p { color: #555; margin-bottom: 1rem; }
+    input, select, textarea { font: inherit; padding: 0.45rem 0.55rem; border: 1px solid #ccc; border-radius: 5px; background: white; }
+    input:focus, select:focus { outline: none; border-color: #bf5700; box-shadow: 0 0 0 3px rgba(191, 87, 0, 0.15); }
+    .login input { width: 100%; margin-bottom: 0.8rem; padding: 0.7rem; }
+    .msg { margin: 0.8rem 0; padding: 0.7rem 0.9rem; border-radius: 6px; background: #e8f4fd; color: #0b4f7c; }
+    .msg.bad { background: #fdecea; color: #a12622; }
+    .msg.good { background: #e6f4ea; color: #1e7b34; }
+
+    .tabs { display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap; }
+    .tabs button { background: white; color: #00274c; border: 1px solid #ccd; }
+    .tabs button[aria-selected="true"] { background: #00274c; color: white; border-color: #00274c; }
+    .count { display: inline-block; min-width: 1.6em; padding: 0 0.4em; margin-left: 0.3em; border-radius: 1em; background: #bf5700; color: white; font-size: 0.8em; text-align: center; }
+
+    .filters { display: flex; gap: 0.6rem; flex-wrap: wrap; align-items: center; margin-bottom: 0.8rem; }
+    .filters label { font-size: 0.9rem; color: #555; }
+    .summary { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 0.9rem; }
+    .pill { background: white; border: 1px solid #dde; border-radius: 999px; padding: 0.2rem 0.75rem; font-size: 0.88rem; }
+
+    .table-wrap { overflow-x: auto; background: white; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.07); }
+    table { border-collapse: collapse; width: 100%; font-size: 0.9rem; }
+    th { background: #00274c; color: white; text-align: left; padding: 0.6rem; white-space: nowrap; }
+    td { padding: 0.5rem 0.6rem; border-bottom: 1px solid #eee; vertical-align: top; }
+    tr.new td:first-child { box-shadow: inset 4px 0 #bf5700; }
+    td small { color: #777; display: block; }
+    td select, td input { width: 100%; min-width: 110px; }
+    td.msgcell { max-width: 260px; white-space: pre-wrap; }
+    .claimed-other { color: #a04900; font-weight: 600; }
+    .saved { color: #1e7b34; font-size: 0.8rem; }
+    .empty { padding: 2rem; text-align: center; color: #777; }
+    .muted { color: #777; font-size: 0.9rem; }
+    [hidden] { display: none !important; }
+
+    /* Scores */
+    .events { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem; }
+    .events button { background: white; color: #00274c; border: 1px solid #ccd; }
+    .events button[aria-pressed="true"] { border-color: #bf5700; box-shadow: inset 0 -3px #bf5700; }
+    .status { display: inline-block; font-size: 0.8rem; font-weight: bold; padding: 0.15rem 0.7rem; border-radius: 999px; margin-left: 0.5rem; vertical-align: middle; }
+    .status.live { background: #e6f4ea; color: #1e7b34; }
+    .status.draft { background: #fff3e6; color: #a04900; }
+    .sheet { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 1.2rem; align-items: start; }
+    .sheet table td { vertical-align: middle; }
+    .sheet td.rank, .sheet td.pts { font-weight: bold; color: #00274c; white-space: nowrap; width: 3.5rem; }
+    .sheet input.score { min-width: 80px; width: 90px; }
+    .sheet input.ovr { min-width: 60px; width: 70px; }
+    .sheet .name input { min-width: 150px; }
+    .matches { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 0.8rem; }
+    .match { background: white; border-radius: 10px; padding: 0.9rem; box-shadow: 0 2px 5px rgba(0,0,0,0.07); }
+    .match-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; font-weight: bold; color: #00274c; }
+    .team { border: 1px solid #eee; border-radius: 8px; padding: 0.6rem; margin-top: 0.5rem; }
+    .team.won { border-color: #1e7b34; background: #f3faf5; }
+    .team-head { display: flex; gap: 0.5rem; align-items: center; margin-bottom: 0.4rem; }
+    .team-head select { flex: 1; }
+    .team-head label { white-space: nowrap; font-size: 0.9rem; }
+    .player { display: flex; gap: 0.4rem; margin-top: 0.3rem; }
+    .player input:first-child { flex: 1; min-width: 0; }
+    .player input.score { width: 70px; }
+    .preview { position: sticky; top: 1rem; }
+    .preview table td, .preview table th { padding: 0.45rem 0.5rem; }
+    .preview .total { font-weight: bold; text-align: right; }
+    .actions { display: flex; gap: 0.6rem; flex-wrap: wrap; align-items: center; margin: 1rem 0; padding: 0.9rem 1rem; background: white; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.07); position: sticky; bottom: 0.5rem; z-index: 5; }
+    .actions .spacer { flex: 1; }
+    .dirty { color: #a04900; font-weight: 600; font-size: 0.9rem; }
+
+    /* Admins */
+    .invite-form { display: flex; gap: 0.6rem; flex-wrap: wrap; align-items: end; margin-bottom: 1rem; }
+    .invite-form label { display: flex; flex-direction: column; font-size: 0.85rem; color: #555; gap: 0.2rem; }
+
+    @media (max-width: 900px) {
+      .sheet { grid-template-columns: 1fr; }
+      .preview { position: static; }
+    }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>🏆 Alumni Cup Admin</h1>
-    <p style="color: #666; margin-bottom: 20px;">Generate code for each section independently</p>
-
-    <!-- PHOTOS -->
-    <h2>1️⃣ Photos</h2>
-    <div class="info">Upload images to your GitHub repo and enter filenames (e.g., trophy.jpg)</div>
-    <div id="photos"></div>
-    <button class="btn-green" onclick="addPhoto()">+ Add Photo</button>
-    <button class="btn-blue" onclick="genPhoto()">Generate Photo Code</button>
-    <button onclick="copy('photoCode')">Copy</button>
-    <div class="inst">
-      <h4>📍 Where to paste:</h4>
-      <ol>
-        <li>Find <code>&lt;/section&gt;</code> (end of Results section)</li>
-        <li>Paste RIGHT AFTER it, BEFORE <code>&lt;/div&gt;</code></li>
-      </ol>
+  <div class="wrap">
+    <div class="top">
+      <h1><a href="index.html">🏆 Alumni Cup Admin</a></h1>
+      <div id="session" hidden>
+        <a class="site" href="index.html">← Site</a>
+        <span class="role" id="role"></span>
+        <span class="who" id="who"></span>
+        <button class="ghost" id="signout" type="button">Sign out</button>
+      </div>
     </div>
-    <div id="photoCode" class="code"></div>
-    <div id="photoMsg" class="success">✅ Generated!</div>
 
-    <div class="divider"></div>
-
-    <!-- RESULTS -->
-    <h2>2️⃣ Results Summary</h2>
-    <h3>Golf</h3>
-    <label>UT Score</label>
-    <input type="number" id="utGolf" value="312">
-    <label>Michigan Score</label>
-    <input type="number" id="umGolf" value="325">
-    <h3>10K Run</h3>
-    <label>UT Time</label>
-    <input type="text" id="utRun" value="49:15">
-    <label>Michigan Time</label>
-    <input type="text" id="umRun" value="48:23">
-    <label>Total Participants</label>
-    <input type="number" id="total" value="100">
-    <label>Notes</label>
-    <textarea id="notes" style="min-height: 60px;"></textarea>
-    <button class="btn-blue" onclick="genResults()">Generate Results Code</button>
-    <button onclick="copy('resultsCode')">Copy</button>
-    <div class="inst">
-      <h4>📍 Where to paste:</h4>
-      <ol>
-        <li>Find <code>&lt;section id="results"&gt;</code></li>
-        <li>REPLACE entire section to closing <code>&lt;/section&gt;</code></li>
-      </ol>
+    <!-- Sign in -->
+    <div class="card login" id="login" hidden>
+      <h2>Admin sign in</h2>
+      <p>Enter your email and we'll send you a sign-in link. You stay signed in on this browser afterwards.</p>
+      <form id="login-form">
+        <input type="email" id="login-email" placeholder="you@example.com" autocomplete="email" required>
+        <button type="submit">Send sign-in link</button>
+      </form>
+      <div class="msg" id="login-msg" hidden></div>
     </div>
-    <div id="resultsCode" class="code"></div>
-    <div id="resultsMsg" class="success">✅ Generated!</div>
 
-    <div class="divider"></div>
-
-    <!-- PARTICIPANTS -->
-    <h2>3️⃣ Participants</h2>
-    <h3>Golf</h3>
-    <div class="info">CSV: Name, School, Score</div>
-    <textarea id="golfCSV" placeholder="John Smith, UT, 78"></textarea>
-    <button class="btn-green" onclick="parseCSV('golfCSV','golfTable')">Parse CSV</button>
-    <table id="golfTable">
-      <thead><tr><th>Name</th><th>School</th><th>Score</th><th></th></tr></thead>
-      <tbody><tr><td><input type="text"></td><td><input type="text"></td><td><input type="number"></td><td><button class="btn-sm btn-red" onclick="delRow(this)">×</button></td></tr></tbody>
-    </table>
-    <h3>10K Run</h3>
-    <div class="info">CSV: Name, School, Time</div>
-    <textarea id="runCSV" placeholder="Jane Doe, Michigan, 48:23"></textarea>
-    <button class="btn-green" onclick="parseCSV('runCSV','runTable')">Parse CSV</button>
-    <table id="runTable">
-      <thead><tr><th>Name</th><th>School</th><th>Time</th><th></th></tr></thead>
-      <tbody><tr><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><button class="btn-sm btn-red" onclick="delRow(this)">×</button></td></tr></tbody>
-    </table>
-    <button class="btn-blue" onclick="genPart()">Generate Participants Code</button>
-    <button onclick="copy('partCode')">Copy</button>
-    <div class="inst">
-      <h4>📍 Where to paste:</h4>
-      <ol>
-        <li>Inside the results section you just pasted</li>
-        <li>Find comment: <code>&lt;!-- Participant details --&gt;</code></li>
-        <li>Replace that line with this code</li>
-      </ol>
+    <div class="card login" id="denied" hidden>
+      <h2>Not an admin</h2>
+      <p>You're signed in as <strong id="denied-email"></strong>, but this email hasn't been given admin access. Ask the Alumni Cup owner to add it, then reload this page.</p>
     </div>
-    <div id="partCode" class="code"></div>
-    <div id="partMsg" class="success">✅ Generated!</div>
 
-    <div class="divider"></div>
+    <!-- App -->
+    <div id="app" hidden>
+      <div class="tabs" role="tablist" id="main-tabs">
+        <button type="button" role="tab" aria-selected="true" data-tab="applications">Applications <span class="count" id="n-applications">0</span></button>
+        <button type="button" role="tab" aria-selected="false" data-tab="scores" data-owner>Scores</button>
+        <button type="button" role="tab" aria-selected="false" data-tab="admins" data-owner>Admins</button>
+      </div>
 
-    <!-- RULES -->
-    <h2>4️⃣ Rules</h2>
-    <label>Golf (English)</label>
-    <textarea id="golfEn">- USGA Rules apply
-- Modified Stableford scoring</textarea>
-    <label>Golf (Korean)</label>
-    <textarea id="golfKo">- USGA 규칙 적용
-- 수정된 스테이블포드 스코어링</textarea>
-    <label>10K (English)</label>
-    <textarea id="runEn">- Chip-timed race
-- USATF certified course</textarea>
-    <label>10K (Korean)</label>
-    <textarea id="runKo">- 칩 타이밍 레이스
-- USATF 인증 코스</textarea>
-    <button class="btn-blue" onclick="genRules()">Generate Rules Code</button>
-    <button onclick="copy('rulesCode')">Copy</button>
-    <div class="inst">
-      <h4>📍 Where to paste:</h4>
-      <ol>
-        <li>Inside results section</li>
-        <li>Find comment: <code>&lt;!-- Rules --&gt;</code></li>
-        <li>Replace that line with this code</li>
-      </ol>
+      <!-- ============================ Applications -->
+      <section id="tab-applications">
+        <div class="tabs" role="tablist" id="app-tabs">
+          <button type="button" role="tab" aria-selected="true" data-sub="individuals">Individuals <span class="count" id="n-individuals">0</span></button>
+          <button type="button" role="tab" aria-selected="false" data-sub="schools" data-owner>Schools <span class="count" id="n-schools">0</span></button>
+        </div>
+
+        <div id="sub-individuals">
+          <p class="muted" id="coord-note" hidden>You see applicants matched to your school, plus unmatched applicants who named a school that isn't in the Cup. Match someone to your school to bring them onto your team.</p>
+          <div class="filters">
+            <label>School
+              <select id="f-school"><option value="">All</option><option value="__none">⚠ Unmatched</option></select>
+            </label>
+            <label>Event
+              <select id="f-sport"><option value="">All</option><option value="golf">Golf</option><option value="run">10K</option></select>
+            </label>
+            <label>Status
+              <select id="f-istatus"><option value="">All</option><option>new</option><option>matched</option><option>rostered</option><option>declined</option></select>
+            </label>
+            <button class="ghost" type="button" id="csv-individuals">Download CSV</button>
+          </div>
+          <div class="summary" id="summary"></div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Received</th><th>Name</th><th>Contact</th><th>Applied as</th><th>Events</th><th>Gender</th><th>Message</th><th>Matched school</th><th>Status</th><th>Note</th></tr></thead>
+              <tbody id="rows-individuals"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div id="sub-schools" hidden>
+          <div class="filters">
+            <label>Status
+              <select id="f-sstatus"><option value="">All</option><option>new</option><option>contacted</option><option>accepted</option><option>declined</option></select>
+            </label>
+            <button class="ghost" type="button" id="csv-schools">Download CSV</button>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Received</th><th>University</th><th>Association</th><th>Contact</th><th>Alumni</th><th>Events</th><th>Message</th><th>Status</th><th>Note</th></tr></thead>
+              <tbody id="rows-schools"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================ Scores (owner) -->
+      <section id="tab-scores" hidden>
+        <div class="events" id="event-picker"></div>
+        <div id="sheet-area"></div>
+      </section>
+
+      <!-- ============================ Admins (owner) -->
+      <section id="tab-admins" hidden>
+        <div class="card">
+          <h2>Add an admin</h2>
+          <p class="muted" style="margin-bottom: 0.8rem">They get access the first time they sign in at <strong>winalumnicup.com/admin</strong> with this email. Coordinators see their own school's applicants plus unmatched ones; owners see and do everything, including scores.</p>
+          <form class="invite-form" id="invite-form">
+            <label>Email <input type="email" id="inv-email" required placeholder="coordinator@example.com" style="min-width: 260px"></label>
+            <label>Role
+              <select id="inv-role"><option value="coordinator">Coordinator</option><option value="owner">Owner</option></select>
+            </label>
+            <label id="inv-school-wrap">School <select id="inv-school"></select></label>
+            <button type="submit">Add</button>
+          </form>
+          <div class="msg" id="inv-msg" hidden></div>
+
+          <h3>Admins</h3>
+          <div class="table-wrap"><table><thead><tr><th>Email</th><th>Role</th><th>School</th><th></th></tr></thead><tbody id="rows-admins"></tbody></table></div>
+
+          <h3>Waiting for first sign-in</h3>
+          <div class="table-wrap"><table><thead><tr><th>Email</th><th>Role</th><th>School</th><th>Added</th><th></th></tr></thead><tbody id="rows-invites"></tbody></table></div>
+        </div>
+      </section>
     </div>
-    <div id="rulesCode" class="code"></div>
-    <div id="rulesMsg" class="success">✅ Generated!</div>
-
-    <div class="divider"></div>
-
-    <!-- ANNOUNCEMENT -->
-    <h2>5️⃣ Announcement</h2>
-    <label>English</label>
-    <input type="text" id="annEn" value="🎉 Alumni Cup 2026">
-    <label>Korean</label>
-    <input type="text" id="annKo" value="🎉 알럼나이 컵 2026">
-    <button class="btn-blue" onclick="genAnn()">Generate Code</button>
-    <button onclick="copy('annCode')">Copy</button>
-    <div class="inst">
-      <h4>📍 Where to paste:</h4>
-      <ol>
-        <li>Find <code>&lt;div class="announcement"&gt;</code></li>
-        <li>REPLACE entire div</li>
-      </ol>
-    </div>
-    <div id="annCode" class="code"></div>
-    <div id="annMsg" class="success">✅ Generated!</div>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3/dist/umd/supabase.js"></script>
+  <script src="js/supabase-config.js"></script>
+  <script src="js/scoring.js"></script>
+  <script src="js/cup-data.js"></script>
   <script>
-    // Init photos
-    document.getElementById('photos').innerHTML = '<div style="margin:5px 0"><input type="text" placeholder="photo.jpg" style="width:80%; margin-right:10px"><button class="btn-sm btn-red" onclick="this.parentElement.remove()">Remove</button></div>';
+    var db = window.supabase.createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
+    var me = null, isOwner = false;
+    var schools = [], individuals = [], schoolApps = [];
+    var SPORT = { golf: '⛳ Golf', run: '🏃 10K' };
+    var GENDER = { f: 'F', m: 'M', undisclosed: '—' };
 
-    function addPhoto() {
-      document.getElementById('photos').innerHTML += '<div style="margin:5px 0"><input type="text" placeholder="photo.jpg" style="width:80%; margin-right:10px"><button class="btn-sm btn-red" onclick="this.parentElement.remove()">Remove</button></div>';
+    function $(id) { return document.getElementById(id); }
+    function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+    function when(t) { var d = new Date(t); return d.toLocaleDateString('en-CA') + '<small>' + d.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }) + '</small>'; }
+    function school(id) { return schools.find(function (x) { return x.id === id; }); }
+    function schoolName(id) { var s = school(id); return s ? s.emoji + ' ' + s.short_en : ''; }
+    function select(options, value, attrs) {
+      return '<select' + (attrs || '') + '>' + options.map(function (o) {
+        return '<option value="' + esc(o[0]) + '"' + (String(o[0]) === String(value == null ? '' : value) ? ' selected' : '') + '>' + esc(o[1]) + '</option>';
+      }).join('') + '</select>';
     }
+    function fail(err, what) { alert((what || 'Something went wrong') + ': ' + (err && err.message || err)); }
 
-    function genPhoto() {
-      const inputs = document.querySelectorAll('#photos input');
-      const imgs = [];
-      inputs.forEach(i => { if(i.value.trim()) imgs.push(i.value.trim()); });
-      if(imgs.length === 0) { alert('Add photos!'); return; }
-      
-      let c = '<!-- Photos - Paste after </section> -->\n<div style="margin-top:3rem">\n  <h3 style="text-align:center;color:#00274c;font-size:1.8rem;margin-bottom:2rem">\n    <span class="lang-en">📸 2025 Photos</span>\n    <span class="lang-ko">📸 2025 사진</span>\n  </h3>\n  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1rem">\n';
-      imgs.forEach(img => c += `    <img src="${img}" alt="Event" style="width:100%;height:250px;object-fit:cover;border-radius:10px;box-shadow:0 4px 6px rgba(0,0,0,0.1)">\n`);
-      c += '  </div>\n</div>';
-      
-      show('photoCode', c, 'photoMsg');
-    }
+    // ================================================================ auth
+    function showOnly(id) { ['login', 'denied', 'app'].forEach(function (x) { $(x).hidden = x !== id; }); }
 
-    function genResults() {
-      const utG = document.getElementById('utGolf').value;
-      const umG = document.getElementById('umGolf').value;
-      const utR = document.getElementById('utRun').value;
-      const umR = document.getElementById('umRun').value;
-      const tot = document.getElementById('total').value;
-      const note = document.getElementById('notes').value;
-      const gWin = parseInt(utG) < parseInt(umG);
-      const rWin = umR < utR;
-      
-      let c = `<!-- Results Section -->\n<section id="results">\n  <h2 class="lang-en">2025 Results</h2>\n  <h2 class="lang-ko">2025 결과</h2>\n  <p class="lang-en" style="text-align:center;font-size:1.1rem;margin-bottom:2rem">Ann Arbor, Michigan - September 2025</p>\n  <p class="lang-ko" style="text-align:center;font-size:1.1rem;margin-bottom:2rem">미시간주 앤아버 - 2025년 9월</p>\n  \n  <div class="results-box">\n    <h3 class="lang-en">⛳ Golf</h3>\n    <h3 class="lang-ko">⛳ 골프</h3>\n    <div class="result-row">\n      <span class="school lang-en">${gWin?'🏆 ':''}UT Austin</span>\n      <span class="school lang-ko">${gWin?'🏆 ':''}텍사스대</span>\n      <span class="score">${utG}</span>\n    </div>\n    <div class="result-row">\n      <span class="school lang-en">${!gWin?'🏆 ':''}Michigan</span>\n      <span class="school lang-ko">${!gWin?'🏆 ':''}미시간대</span>\n      <span class="score">${umG}</span>\n    </div>\n  </div>\n  \n  <div class="results-box">\n    <h3 class="lang-en">🏃 10K Run</h3>\n    <h3 class="lang-ko">🏃 10K 마라톤</h3>\n    <div class="result-row">\n      <span class="school lang-en">${rWin?'🏆 ':''}Michigan</span>\n      <span class="school lang-ko">${rWin?'🏆 ':''}미시간대</span>\n      <span class="score">${umR}</span>\n    </div>\n    <div class="result-row">\n      <span class="school lang-en">${!rWin?'🏆 ':''}UT Austin</span>\n      <span class="school lang-ko">${!rWin?'🏆 ':''}텍사스대</span>\n      <span class="score">${utR}</span>\n    </div>\n  </div>\n  \n  <!-- Participant details -->\n  \n  <!-- Rules -->\n  \n  <p class="lang-en" style="text-align:center;margin-top:2rem;font-style:italic">Over ${tot} alumni participated.${note?' '+note:''}</p>\n  <p class="lang-ko" style="text-align:center;margin-top:2rem;font-style:italic">${tot}명 이상의 동문이 참가했습니다.${note?' '+note:''}</p>\n</section>`;
-      
-      show('resultsCode', c, 'resultsMsg');
-    }
+    $('login-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var btn = this.querySelector('button'), msg = $('login-msg');
+      btn.disabled = true;
+      db.auth.signInWithOtp({ email: $('login-email').value.trim(), options: { emailRedirectTo: location.origin + location.pathname, shouldCreateUser: true } })
+        .then(function (res) {
+          btn.disabled = false;
+          msg.hidden = false;
+          msg.className = 'msg' + (res.error ? ' bad' : '');
+          msg.textContent = res.error ? res.error.message : 'Check your inbox for the sign-in link.';
+        });
+    });
+    $('signout').addEventListener('click', function () { db.auth.signOut().then(function () { location.reload(); }); });
 
-    function getData(tId) {
-      const rows = document.getElementById(tId).querySelector('tbody').rows;
-      const data = [];
-      for(let r of rows) {
-        const inp = r.querySelectorAll('input');
-        if(inp[0].value && inp[1].value && inp[2].value) {
-          data.push({name:inp[0].value, school:inp[1].value, score:inp[2].value});
-        }
-      }
-      return data;
-    }
+    var started = false;
+    db.auth.onAuthStateChange(function (_event, session) {
+      if (!session) { $('session').hidden = true; showOnly('login'); return; }
+      if (started) return;
+      started = true;
+      $('session').hidden = false;
+      $('who').textContent = session.user.email;
+      // Turn a pending invite for this email into admin access, then look up our own row.
+      db.rpc('claim_admin_invite').then(function () {
+        return db.from('admins').select('user_id, email, role, school_id').eq('user_id', session.user.id).maybeSingle();
+      }).then(function (res) {
+        if (res.error || !res.data) { $('denied-email').textContent = session.user.email; showOnly('denied'); return; }
+        me = res.data;
+        isOwner = me.role === 'owner';
+        return db.from('schools').select('id, code, emoji, short_en, short_ko, name_en').order('sort_order').then(function (r) {
+          if (r.error) throw r.error;
+          schools = r.data;
+          $('role').textContent = isOwner ? 'Owner' : 'Coordinator · ' + schoolName(me.school_id);
+          document.querySelectorAll('[data-owner]').forEach(function (el) { el.hidden = !isOwner; });
+          $('coord-note').hidden = isOwner;
+          showOnly('app');
+          loadApplications();
+        });
+      }).catch(function (e) { fail(e, 'Could not start'); });
+    });
 
-    function genPart() {
-      const golf = getData('golfTable');
-      const run = getData('runTable');
-      
-      // Sort golf by score (lowest to highest)
-      golf.sort((a, b) => parseInt(a.score) - parseInt(b.score));
-      
-      // Sort run by time (fastest to slowest) - convert mm:ss to seconds for comparison
-      run.sort((a, b) => {
-        const aTime = a.score.split(':').map(Number);
-        const bTime = b.score.split(':').map(Number);
-        const aSec = (aTime[0] || 0) * 60 + (aTime[1] || 0);
-        const bSec = (bTime[0] || 0) * 60 + (bTime[1] || 0);
-        return aSec - bSec;
+    // ================================================================ tabs
+    function wireTabs(container, attr, prefix) {
+      $(container).querySelectorAll('button').forEach(function (b) {
+        b.addEventListener('click', function () {
+          $(container).querySelectorAll('button').forEach(function (x) {
+            x.setAttribute('aria-selected', x === b);
+            $(prefix + x.dataset[attr]).hidden = x !== b;
+          });
+          if (b.dataset.tab === 'scores') loadEvents();
+          if (b.dataset.tab === 'admins') loadAdmins();
+        });
       });
-      
-      let c = `  <details style="margin-top:2rem;background:#f9f9f9;padding:1.5rem;border-radius:10px">\n    <summary style="cursor:pointer;font-size:1.2rem;font-weight:bold;color:#bf5700">\n      <span class="lang-en">📊 Detailed Results</span>\n      <span class="lang-ko">📊 상세 결과</span>\n    </summary>\n    <div style="margin-top:1.5rem">\n`;
-      
-      // Golf participants table
-      if (golf.length > 0) {
-        c += `      <h4 class="lang-en" style="color:#00274c;margin-bottom:1rem">⛳ Golf Participants</h4>\n      <h4 class="lang-ko" style="color:#00274c;margin-bottom:1rem">⛳ 골프 참가자</h4>\n      <div style="background:white;padding:1rem;border-radius:8px;margin-bottom:2rem">\n        <table style="width:100%;border-collapse:collapse">\n          <thead>\n            <tr style="border-bottom:2px solid #ddd">\n              <th style="text-align:left;padding:0.5rem"><span class="lang-en">Name</span><span class="lang-ko">이름</span></th>\n              <th style="text-align:left;padding:0.5rem"><span class="lang-en">School</span><span class="lang-ko">학교</span></th>\n              <th style="text-align:right;padding:0.5rem"><span class="lang-en">Score</span><span class="lang-ko">점수</span></th>\n            </tr>\n          </thead>\n          <tbody>`;
-        golf.forEach(p => c += `\n            <tr style="border-bottom:1px solid #eee"><td style="padding:0.5rem">${p.name}</td><td style="padding:0.5rem">${p.school}</td><td style="padding:0.5rem;text-align:right">${p.score}</td></tr>`);
-        c += `\n          </tbody>\n        </table>\n      </div>\n`;
-      }
-      
-      // Run participants table
-      if (run.length > 0) {
-        c += `      <h4 class="lang-en" style="color:#00274c;margin-bottom:1rem">🏃 10K Run Participants</h4>\n      <h4 class="lang-ko" style="color:#00274c;margin-bottom:1rem">🏃 10K 마라톤 참가자</h4>\n      <div style="background:white;padding:1rem;border-radius:8px">\n        <table style="width:100%;border-collapse:collapse">\n          <thead>\n            <tr style="border-bottom:2px solid #ddd">\n              <th style="text-align:left;padding:0.5rem"><span class="lang-en">Name</span><span class="lang-ko">이름</span></th>\n              <th style="text-align:left;padding:0.5rem"><span class="lang-en">School</span><span class="lang-ko">학교</span></th>\n              <th style="text-align:right;padding:0.5rem"><span class="lang-en">Time</span><span class="lang-ko">기록</span></th>\n            </tr>\n          </thead>\n          <tbody>`;
-        run.forEach(p => c += `\n            <tr style="border-bottom:1px solid #eee"><td style="padding:0.5rem">${p.name}</td><td style="padding:0.5rem">${p.school}</td><td style="padding:0.5rem;text-align:right">${p.score}</td></tr>`);
-        c += `\n          </tbody>\n        </table>\n      </div>\n`;
-      }
-      
-      c += `    </div>\n  </details>`;
-      
-      show('partCode', c, 'partMsg');
     }
+    wireTabs('main-tabs', 'tab', 'tab-');
+    wireTabs('app-tabs', 'sub', 'sub-');
 
-    function genRules() {
-      const gEn = document.getElementById('golfEn').value;
-      const gKo = document.getElementById('golfKo').value;
-      const rEn = document.getElementById('runEn').value;
-      const rKo = document.getElementById('runKo').value;
-      
-      let c = `  <details style="margin-top:1rem;background:#f9f9f9;padding:1.5rem;border-radius:10px">\n    <summary style="cursor:pointer;font-size:1.2rem;font-weight:bold;color:#bf5700">\n      <span class="lang-en">📋 Rules</span>\n      <span class="lang-ko">📋 규칙</span>\n    </summary>\n    <div style="margin-top:1rem">\n      <h4 class="lang-en">⛳ Golf Rules</h4>\n      <h4 class="lang-ko">⛳ 골프 규칙</h4>\n      <div class="lang-en" style="background:white;padding:1rem;margin:0.5rem 0;white-space:pre-line">${gEn}</div>\n      <div class="lang-ko" style="background:white;padding:1rem;margin:0.5rem 0;white-space:pre-line">${gKo}</div>\n      <h4 class="lang-en" style="margin-top:1rem">🏃 10K Rules</h4>\n      <h4 class="lang-ko" style="margin-top:1rem">🏃 10K 규칙</h4>\n      <div class="lang-en" style="background:white;padding:1rem;margin:0.5rem 0;white-space:pre-line">${rEn}</div>\n      <div class="lang-ko" style="background:white;padding:1rem;margin:0.5rem 0;white-space:pre-line">${rKo}</div>\n    </div>\n  </details>`;
-      
-      show('rulesCode', c, 'rulesMsg');
-    }
-
-    function genAnn() {
-      const en = document.getElementById('annEn').value;
-      const ko = document.getElementById('annKo').value;
-      const c = `<div class="announcement">\n  <span class="lang-en">${en}</span>\n  <span class="lang-ko">${ko}</span>\n</div>`;
-      show('annCode', c, 'annMsg');
-    }
-
-    function delRow(btn) {
-      const tbody = btn.closest('tbody');
-      if(tbody.rows.length > 1) btn.closest('tr').remove();
-    }
-
-    function parseCSV(csvId, tId) {
-      const csv = document.getElementById(csvId).value.trim();
-      if(!csv) { alert('Paste CSV!'); return; }
-      const tbody = document.getElementById(tId).querySelector('tbody');
-      tbody.innerHTML = '';
-      const type = tId === 'golfTable' ? 'number' : 'text';
-      csv.split('\n').forEach(line => {
-        const p = line.split(',').map(x => x.trim());
-        if(p.length >= 3) {
-          const r = tbody.insertRow();
-          r.innerHTML = `<td><input type="text" value="${p[0]}"></td><td><input type="text" value="${p[1]}"></td><td><input type="${type}" value="${p[2]}"></td><td><button class="btn-sm btn-red" onclick="delRow(this)">×</button></td>`;
-        }
+    // ======================================================== applications
+    function loadApplications() {
+      var jobs = [db.from('individual_applications').select('*').order('created_at', { ascending: false })];
+      if (isOwner) jobs.push(db.from('school_applications').select('*').order('created_at', { ascending: false }));
+      Promise.all(jobs).then(function (r) {
+        var err = r.find(function (x) { return x.error; });
+        if (err) { fail(err.error, 'Could not load applications'); return; }
+        individuals = r[0].data; schoolApps = r[1] ? r[1].data : [];
+        var fs = $('f-school');
+        fs.length = 2;
+        schools.filter(function (s) { return isOwner || s.id === me.school_id; }).forEach(function (s) {
+          var o = document.createElement('option'); o.value = s.id; o.textContent = s.emoji + ' ' + s.short_en; fs.appendChild(o);
+        });
+        renderIndividuals(); renderSchools();
       });
-      document.getElementById(csvId).value = '';
-      alert('Parsed!');
     }
 
-    function show(cId, code, mId) {
-      document.getElementById(cId).textContent = code;
-      document.getElementById(cId).style.display = 'block';
-      const msg = document.getElementById(mId);
-      msg.style.display = 'block';
-      setTimeout(() => msg.style.display = 'none', 3000);
+    function save(table, id, patch) {
+      return db.from(table).update(patch).eq('id', id).select('id').then(function (res) {
+        if (res.error) { fail(res.error, 'Save failed'); return false; }
+        // RLS can quietly turn an update into "0 rows" instead of an error.
+        if (!res.data || !res.data.length) { alert('That change was not allowed.'); return false; }
+        return true;
+      });
     }
 
-    function copy(id) {
-      const txt = document.getElementById(id).textContent;
-      if(!txt) { alert('Generate first!'); return; }
-      navigator.clipboard.writeText(txt).then(() => alert('✅ Copied!'));
+    // The table re-renders after a save, so find the fresh cell to tick.
+    function flash(tbody, id, field) {
+      var cell = $(tbody).querySelector('tr[data-id="' + id + '"] td[data-f="' + field + '"]');
+      if (!cell) return;
+      var tick = document.createElement('span');
+      tick.className = 'saved'; tick.textContent = ' ✓ saved';
+      cell.appendChild(tick);
+      setTimeout(function () { tick.remove(); }, 1500);
     }
+
+    function renderIndividuals() {
+      var fSchool = $('f-school').value, fSport = $('f-sport').value, fStatus = $('f-istatus').value;
+      var list = individuals.filter(function (a) {
+        if (fSchool === '__none' ? a.school_id : (fSchool && a.school_id !== fSchool)) return false;
+        if (fSport && a.sports.indexOf(fSport) < 0) return false;
+        if (fStatus && a.status !== fStatus) return false;
+        return true;
+      });
+      var fresh = individuals.filter(function (a) { return a.status === 'new'; }).length;
+      $('n-individuals').textContent = fresh;
+      $('n-applications').textContent = fresh + schoolApps.filter(function (a) { return a.status === 'new'; }).length;
+
+      // Per-school roster counts, so it is visible at a glance who still needs players.
+      $('summary').innerHTML = schools.filter(function (s) { return isOwner || s.id === me.school_id; }).map(function (s) {
+        var mine = individuals.filter(function (a) { return a.school_id === s.id && a.status !== 'declined'; });
+        var golf = mine.filter(function (a) { return a.sports.indexOf('golf') >= 0; }).length;
+        var run = mine.filter(function (a) { return a.sports.indexOf('run') >= 0; });
+        var women = run.filter(function (a) { return a.gender === 'f'; }).length;
+        return '<span class="pill">' + esc(s.emoji + ' ' + s.short_en) + ': ⛳ ' + golf + ' · 🏃 ' + run.length + ' (' + women + ' F)</span>';
+      }).join('') + '<span class="pill">⚠ Unmatched: ' + individuals.filter(function (a) { return !a.school_id; }).length + '</span>';
+
+      // Coordinators may only match to their own school (RLS enforces it too).
+      var schoolOpts = [['', '— unmatched —']].concat(schools.filter(function (s) { return isOwner || s.id === me.school_id; })
+        .map(function (s) { return [s.id, s.emoji + ' ' + s.short_en]; }));
+      var statusOpts = ['new', 'matched', 'rostered', 'declined'].map(function (s) { return [s, s]; });
+
+      $('rows-individuals').innerHTML = list.length ? list.map(function (a) {
+        var applied = a.school_other
+          ? '<span class="claimed-other">Other: ' + esc(a.school_other) + '</span>'
+          : esc(schoolName(a.school_id) || '(school removed)');
+        var events = a.sports.map(function (s) { return SPORT[s] || s; }).join('<br>');
+        if (a.golf_avg) events += '<small>avg ' + a.golf_avg + '</small>';
+        if (a.run_10k) events += '<small>10K ' + esc(a.run_10k) + '</small>';
+        return '<tr data-id="' + a.id + '"' + (a.status === 'new' ? ' class="new"' : '') + '>' +
+          '<td>' + when(a.created_at) + '</td>' +
+          '<td><strong>' + esc(a.name) + '</strong>' + (a.school_detail ? '<small>' + esc(a.school_detail) + '</small>' : '') + '</td>' +
+          '<td><a href="mailto:' + esc(a.email) + '">' + esc(a.email) + '</a>' + (a.phone ? '<small>' + esc(a.phone) + '</small>' : '') + '</td>' +
+          '<td>' + applied + '</td>' +
+          '<td>' + events + '</td>' +
+          '<td>' + (GENDER[a.gender] || '') + '</td>' +
+          '<td class="msgcell">' + esc(a.message) + '</td>' +
+          '<td data-f="school_id">' + select(schoolOpts, a.school_id) + '</td>' +
+          '<td data-f="status">' + select(statusOpts, a.status) + '</td>' +
+          '<td data-f="admin_note"><input type="text" value="' + esc(a.admin_note) + '"></td>' +
+          '</tr>';
+      }).join('') : '<tr><td colspan="10" class="empty">No applications match these filters.</td></tr>';
+    }
+
+    $('rows-individuals').addEventListener('change', function (e) {
+      var cell = e.target.closest('td[data-f]'); if (!cell) return;
+      var id = cell.parentNode.dataset.id, field = cell.dataset.f, v = e.target.value || null;
+      var a = individuals.find(function (x) { return x.id === id; });
+      var patch = {}; patch[field] = v;
+      // Matching someone to a school moves a fresh application along.
+      if (field === 'school_id' && v && a.status === 'new') patch.status = 'matched';
+      if (field === 'school_id' && !v && !a.school_other) { alert('This applicant picked a school from the list; pick another school rather than leaving them unmatched.'); renderIndividuals(); return; }
+      save('individual_applications', id, patch).then(function (ok) {
+        if (!ok) { renderIndividuals(); return; }
+        Object.assign(a, patch);
+        // A coordinator who unmatches someone from their school can still see them (unmatched pool).
+        renderIndividuals();
+        flash('rows-individuals', id, field);
+      });
+    });
+    ['f-school', 'f-sport', 'f-istatus'].forEach(function (id) { $(id).addEventListener('change', renderIndividuals); });
+
+    function renderSchools() {
+      if (!isOwner) return;
+      var fStatus = $('f-sstatus').value;
+      var list = schoolApps.filter(function (a) { return !fStatus || a.status === fStatus; });
+      $('n-schools').textContent = schoolApps.filter(function (a) { return a.status === 'new'; }).length;
+      var statusOpts = ['new', 'contacted', 'accepted', 'declined'].map(function (s) { return [s, s]; });
+      $('rows-schools').innerHTML = list.length ? list.map(function (a) {
+        return '<tr data-id="' + a.id + '"' + (a.status === 'new' ? ' class="new"' : '') + '>' +
+          '<td>' + when(a.created_at) + '</td>' +
+          '<td><strong>' + esc(a.school_name) + '</strong></td>' +
+          '<td>' + esc(a.association_name) + '</td>' +
+          '<td>' + esc(a.contact_name) + (a.contact_role ? '<small>' + esc(a.contact_role) + '</small>' : '') +
+            '<small><a href="mailto:' + esc(a.email) + '">' + esc(a.email) + '</a></small>' + (a.phone ? '<small>' + esc(a.phone) + '</small>' : '') + '</td>' +
+          '<td>' + (a.member_count == null ? '' : a.member_count) + '</td>' +
+          '<td>' + a.sports.map(function (s) { return SPORT[s] || s; }).join('<br>') + '</td>' +
+          '<td class="msgcell">' + esc(a.message) + '</td>' +
+          '<td data-f="status">' + select(statusOpts, a.status) + '</td>' +
+          '<td data-f="admin_note"><input type="text" value="' + esc(a.admin_note) + '"></td>' +
+          '</tr>';
+      }).join('') : '<tr><td colspan="9" class="empty">No school applications yet.</td></tr>';
+    }
+
+    $('rows-schools').addEventListener('change', function (e) {
+      var cell = e.target.closest('td[data-f]'); if (!cell) return;
+      var id = cell.parentNode.dataset.id, patch = {};
+      patch[cell.dataset.f] = e.target.value || null;
+      save('school_applications', id, patch).then(function (ok) {
+        if (!ok) { renderSchools(); return; }
+        Object.assign(schoolApps.find(function (x) { return x.id === id; }), patch);
+        renderSchools();
+        flash('rows-schools', id, cell.dataset.f);
+      });
+    });
+    $('f-sstatus').addEventListener('change', renderSchools);
+
+    function csv(name, rows, cols) {
+      var q = function (v) { v = v == null ? '' : Array.isArray(v) ? v.join(' ') : String(v); return /[",\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; };
+      var text = '﻿' + [cols.map(function (c) { return c[0]; }).join(',')]
+        .concat(rows.map(function (r) { return cols.map(function (c) { return q(c[1](r)); }).join(','); })).join('\r\n');
+      var a = document.createElement('a');
+      a.href = URL.createObjectURL(new Blob([text], { type: 'text/csv;charset=utf-8' }));
+      a.download = name + '-' + new Date().toISOString().slice(0, 10) + '.csv';
+      a.click();
+    }
+    var col = function (k) { return function (r) { return r[k]; }; };
+    $('csv-individuals').addEventListener('click', function () {
+      csv('individual-applications', individuals, [['received', col('created_at')], ['name', col('name')], ['email', col('email')], ['phone', col('phone')],
+        ['matched_school', function (r) { return schoolName(r.school_id); }], ['school_other', col('school_other')], ['degree_year', col('school_detail')],
+        ['events', col('sports')], ['golf_avg', col('golf_avg')], ['run_10k', col('run_10k')], ['gender', col('gender')], ['status', col('status')], ['note', col('admin_note')], ['message', col('message')]]);
+    });
+    $('csv-schools').addEventListener('click', function () {
+      csv('school-applications', schoolApps, [['received', col('created_at')], ['university', col('school_name')], ['association', col('association_name')], ['contact', col('contact_name')],
+        ['role', col('contact_role')], ['email', col('email')], ['phone', col('phone')], ['alumni', col('member_count')], ['events', col('sports')], ['status', col('status')], ['note', col('admin_note')], ['message', col('message')]]);
+    });
+
+    // ============================================================== scores
+    var events = [], ev = null, sheet = null, dirty = false, nextKey = 1;
+    var codeById = {}, idByCode = {};
+
+    window.addEventListener('beforeunload', function (e) { if (dirty) { e.preventDefault(); e.returnValue = ''; } });
+
+    function loadEvents() {
+      schools.forEach(function (s) { codeById[s.id] = s.code; idByCode[s.code] = s.id; });
+      db.from('events').select('*').order('event_date').then(function (r) {
+        if (r.error) { fail(r.error, 'Could not load events'); return; }
+        events = r.data;
+        $('event-picker').innerHTML = events.map(function (e) {
+          return '<button type="button" data-id="' + e.id + '" aria-pressed="' + (ev && ev.id === e.id) + '">' + esc(e.year + ' ' + e.title_en) +
+            '<span class="status ' + (e.status === 'completed' ? 'live">Published' : 'draft">Draft') + '</span></button>';
+        }).join('');
+        if (!ev && events.length) openEvent(events.find(function (e) { return e.status !== 'completed'; }) || events[0]);
+      });
+    }
+
+    $('event-picker').addEventListener('click', function (e) {
+      var b = e.target.closest('button'); if (!b) return;
+      if (dirty && !confirm('You have unsaved scores. Switch events and lose them?')) return;
+      openEvent(events.find(function (x) { return x.id === b.dataset.id; }));
+    });
+
+    function openEvent(e) {
+      ev = e;
+      document.querySelectorAll('#event-picker button').forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.id === e.id); });
+      db.from('participants').select('*').eq('event_id', e.id).then(function (r) {
+        if (r.error) { fail(r.error, 'Could not load scores'); return; }
+        sheet = AlumniCupData.fromDb(r.data, codeById);
+        sheet.competitive.forEach(function (row) { row.key = nextKey++; });
+        dirty = false;
+        renderSheet();
+      });
+    }
+
+    function isRun() { return ev.sport === 'run'; }
+    function hasMatches() { return !!(ev.scoring && ev.scoring.team_match_points); }
+    function eventForScoring() { return Object.assign({}, ev, { competitive: sheet.competitive, recreational: sheet.recreational }); }
+    function markDirty() { dirty = true; var d = $('dirty'); if (d) d.hidden = false; }
+
+    function schoolOptions() { return [['', 'School…']].concat(schools.map(function (s) { return [s.code, s.emoji + ' ' + s.short_en]; })); }
+
+    function renderSheet() {
+      var live = ev.status === 'completed';
+      var unit = isRun() ? 'Time (H:MM:SS)' : 'Strokes';
+      var h = '<div class="sheet"><div>' +
+        '<h2>' + esc(ev.title_en) + ' <span class="status ' + (live ? 'live">Published' : 'draft">Draft — not public') + '</span></h2>' +
+        '<p class="muted">' + esc(ev.event_date || '') + (ev.venue_en ? ' · ' + esc(ev.venue_en) : '') +
+        (live && ev.published_at ? ' · last published ' + new Date(ev.published_at).toLocaleString('en-GB') : '') + '</p>' +
+        '<h3>' + (hasMatches() ? 'Individual (competitive)' : 'Runners') + '</h3>' +
+        '<div class="table-wrap"><table id="comp"><thead><tr><th>#</th><th>Name</th><th>School</th><th>' + unit + '</th><th>Pts</th>' +
+        '<th title="Only for ties settled by the organisers, e.g. on countback">Rank override</th><th title="Only when the rules give these points by hand">Pts override</th><th></th></tr></thead><tbody>' +
+        sheet.competitive.map(compRow).join('') +
+        '</tbody></table></div>' +
+        '<p style="margin-top: 0.6rem"><button type="button" class="ghost" id="add-comp">+ Add ' + (isRun() ? 'runner' : 'player') + '</button> ' +
+        '<button type="button" class="ghost" id="add-rostered">+ Add rostered applicants</button></p>';
+      if (hasMatches()) {
+        h += '<h3>Recreational team matches</h3><div class="matches" id="matches">' + sheet.recreational.map(matchCard).join('') + '</div>' +
+          '<p style="margin-top: 0.6rem"><button type="button" class="ghost" id="add-match">+ Add match</button></p>';
+      }
+      h += '</div><div class="preview card"><h2>Standings preview</h2><div id="preview"></div>' +
+        '<p class="muted" style="margin-top: 0.6rem">Updates as you type. Nothing is public until you publish.</p></div></div>' +
+        '<div class="actions"><span class="dirty" id="dirty" hidden>● Unsaved changes</span><span class="spacer"></span>' +
+        '<button type="button" class="ghost" id="save">Save draft</button>' +
+        '<button type="button" id="publish">' + (live ? 'Save &amp; republish' : 'Save &amp; publish') + '</button>' +
+        (live ? '<button type="button" class="danger" id="unpublish">Unpublish</button>' : '') + '</div>' +
+        '<div id="sheet-msg"></div>';
+      $('sheet-area').innerHTML = h;
+      wireSheet();
+      recompute();
+    }
+
+    function compRow(r) {
+      return '<tr data-key="' + r.key + '">' +
+        '<td class="rank">–</td>' +
+        '<td class="name"><input type="text" data-k="name" value="' + esc(r.name) + '"></td>' +
+        '<td>' + select(schoolOptions(), r.school, ' data-k="school"') + '</td>' +
+        '<td><input type="text" class="score" data-k="' + (isRun() ? 'time' : 'score') + '" inputmode="' + (isRun() ? 'text' : 'numeric') + '" value="' + esc(isRun() ? r.time : r.score) + '"></td>' +
+        '<td class="pts">–</td>' +
+        '<td><input type="number" class="ovr" data-k="rank" placeholder="auto" value="' + esc(r.rank) + '"></td>' +
+        '<td><input type="number" class="ovr" step="0.01" data-k="points" placeholder="auto" value="' + esc(r.points) + '"></td>' +
+        '<td><button type="button" class="x" data-del title="Remove">×</button></td></tr>';
+    }
+
+    function matchCard(m, mi) {
+      return '<div class="match" data-m="' + mi + '"><div class="match-head">Match ' + esc(m.match) +
+        '<button type="button" class="x" data-del-match title="Remove match">×</button></div>' +
+        m.teams.map(function (t, ti) {
+          return '<div class="team' + (t.result === 'win' ? ' won' : '') + '" data-t="' + ti + '"><div class="team-head">' +
+            select(schoolOptions(), t.school, ' data-tk="school"') +
+            '<label><input type="radio" name="win-' + mi + '" data-win' + (t.result === 'win' ? ' checked' : '') + '> Won</label></div>' +
+            t.players.map(function (p, pi) {
+              return '<div class="player" data-p="' + pi + '"><input type="text" data-pk="name" placeholder="Player" value="' + esc(p.name) + '">' +
+                '<input type="text" class="score" data-pk="score" inputmode="numeric" placeholder="Strokes" value="' + esc(p.score) + '">' +
+                '<button type="button" class="x" data-del-player title="Remove">×</button></div>';
+            }).join('') +
+            '<button type="button" class="ghost" data-add-player style="margin-top: 0.4rem; padding: 0.25rem 0.7rem; font-size: 0.85rem">+ Player</button></div>';
+        }).join('') + '</div>';
+    }
+
+    function numOrNull(v) { v = String(v).trim(); return v === '' ? null : Number(v); }
+
+    function wireSheet() {
+      var comp = $('comp');
+      comp.addEventListener('input', function (e) {
+        var k = e.target.dataset.k; if (!k) return;
+        var row = sheet.competitive.find(function (r) { return String(r.key) === e.target.closest('tr').dataset.key; });
+        var v = e.target.value;
+        if (k === 'score' || k === 'rank' || k === 'points') v = numOrNull(v);
+        if (v === null || v === '') delete row[k]; else row[k] = v;
+        markDirty(); recompute();
+      });
+      comp.addEventListener('click', function (e) {
+        if (!e.target.hasAttribute('data-del')) return;
+        var key = e.target.closest('tr').dataset.key;
+        sheet.competitive = sheet.competitive.filter(function (r) { return String(r.key) !== key; });
+        e.target.closest('tr').remove();
+        markDirty(); recompute();
+      });
+      $('add-comp').addEventListener('click', function () {
+        var r = { key: nextKey++, name: '', school: '' };
+        sheet.competitive.push(r);
+        comp.querySelector('tbody').insertAdjacentHTML('beforeend', compRow(r));
+        comp.querySelector('tbody tr:last-child input').focus();
+        markDirty();
+      });
+      $('add-rostered').addEventListener('click', addRostered);
+
+      if (hasMatches()) {
+        var box = $('matches');
+        box.addEventListener('input', function (e) {
+          var mEl = e.target.closest('.match'); if (!mEl) return;
+          var m = sheet.recreational[mEl.dataset.m], tEl = e.target.closest('.team'), t = tEl && m.teams[tEl.dataset.t];
+          if (e.target.dataset.tk === 'school') t.school = e.target.value;
+          else if (e.target.hasAttribute('data-win')) {
+            m.teams.forEach(function (x, i) { x.result = String(i) === tEl.dataset.t ? 'win' : 'loss'; });
+            box.querySelectorAll('.match[data-m="' + mEl.dataset.m + '"] .team').forEach(function (el, i) { el.classList.toggle('won', m.teams[i].result === 'win'); });
+          } else if (e.target.dataset.pk) {
+            var p = t.players[e.target.closest('.player').dataset.p];
+            p[e.target.dataset.pk] = e.target.dataset.pk === 'score' ? numOrNull(e.target.value) : e.target.value;
+          }
+          markDirty(); recompute();
+        });
+        box.addEventListener('click', function (e) {
+          var mEl = e.target.closest('.match'); if (!mEl) return;
+          var mi = +mEl.dataset.m, m = sheet.recreational[mi];
+          if (e.target.hasAttribute('data-del-match')) { if (!confirm('Remove match ' + m.match + '?')) return; sheet.recreational.splice(mi, 1); }
+          else if (e.target.hasAttribute('data-add-player')) m.teams[e.target.closest('.team').dataset.t].players.push({ name: '', score: null });
+          else if (e.target.hasAttribute('data-del-player')) m.teams[e.target.closest('.team').dataset.t].players.splice(+e.target.closest('.player').dataset.p, 1);
+          else return;
+          box.innerHTML = sheet.recreational.map(matchCard).join('');
+          markDirty(); recompute();
+        });
+        $('add-match').addEventListener('click', function () {
+          var n = sheet.recreational.reduce(function (x, m) { return Math.max(x, m.match); }, 0) + 1;
+          sheet.recreational.push({ match: n, teams: [{ school: '', result: 'loss', players: [{ name: '', score: null }, { name: '', score: null }] },
+                                                      { school: '', result: 'loss', players: [{ name: '', score: null }, { name: '', score: null }] }] });
+          box.innerHTML = sheet.recreational.map(matchCard).join('');
+          markDirty(); recompute();
+        });
+      }
+
+      $('save').addEventListener('click', function () { saveSheet(false); });
+      $('publish').addEventListener('click', function () { saveSheet(true); });
+      if ($('unpublish')) $('unpublish').addEventListener('click', unpublish);
+    }
+
+    function recompute() {
+      var scored = AlumniScoring.scoreEvent(eventForScoring());
+      var byKey = {};
+      scored.competitive.forEach(function (r) { byKey[r.key] = r; });
+      $('comp').querySelectorAll('tbody tr').forEach(function (tr) {
+        var r = byKey[tr.dataset.key];
+        tr.querySelector('.rank').textContent = r ? r.rank : '–';
+        tr.querySelector('.pts').textContent = r ? +Number(r.points).toFixed(3) : '–';
+      });
+      $('preview').innerHTML = scored.standings.length
+        ? '<table><tbody>' + scored.standings.map(function (s) {
+            var sc = schools.find(function (x) { return x.code === s.school; });
+            return '<tr><td>' + s.rank + '</td><td>' + esc(sc ? sc.emoji + ' ' + sc.short_en : s.school) + '</td><td class="total">' + (+s.points.toFixed(3)) + '</td></tr>';
+          }).join('') + '</tbody></table>'
+        : '<p class="muted">Enter scores to see the standings.</p>';
+    }
+
+    function addRostered() {
+      db.from('individual_applications').select('name, school_id, sports').eq('status', 'rostered').not('school_id', 'is', null).then(function (r) {
+        if (r.error) { fail(r.error, 'Could not load the roster'); return; }
+        var have = {};
+        sheet.competitive.forEach(function (x) { have[x.name.trim()] = 1; });
+        sheet.recreational.forEach(function (m) { m.teams.forEach(function (t) { t.players.forEach(function (p) { have[String(p.name).trim()] = 1; }); }); });
+        var add = r.data.filter(function (a) { return a.sports.indexOf(ev.sport) >= 0 && !have[a.name.trim()]; });
+        if (!add.length) { alert('Everyone marked "rostered" for this event is already on the sheet.'); return; }
+        add.forEach(function (a) { sheet.competitive.push({ key: nextKey++, name: a.name, school: codeById[a.school_id] }); });
+        markDirty();
+        renderSheet();
+        markDirty();
+      });
+    }
+
+    function validate() {
+      var problems = [];
+      sheet.competitive.forEach(function (r) {
+        if (!String(r.name || '').trim()) return;
+        if (!r.school) problems.push(r.name + ': no school');
+        if (isRun() && r.time && AlumniCupData.formatTime(r.time) === null) problems.push(r.name + ': time "' + r.time + '" is not H:MM:SS');
+      });
+      sheet.recreational.forEach(function (m) {
+        m.teams.forEach(function (t, i) {
+          var named = t.players.filter(function (p) { return String(p.name || '').trim(); });
+          if (named.length && !t.school) problems.push('Match ' + m.match + ', team ' + (i + 1) + ': no school');
+        });
+        if (!m.teams.some(function (t) { return t.result === 'win'; })) problems.push('Match ' + m.match + ': no winner picked');
+      });
+      return problems;
+    }
+
+    function msg(text, kind) { $('sheet-msg').innerHTML = '<div class="msg ' + (kind || '') + '">' + text + '</div>'; }
+
+    function saveSheet(publish) {
+      var problems = validate();
+      if (problems.length) { msg('Fix these first:<br>• ' + problems.map(esc).join('<br>• '), 'bad'); return; }
+      if (publish && !confirm((ev.status === 'completed' ? 'Republish' : 'Publish') + ' ' + ev.title_en + '? The results page updates in about a minute.')) return;
+      var rows = AlumniCupData.toDb(eventForScoring(), idByCode);
+      var buttons = document.querySelectorAll('.actions button');
+      buttons.forEach(function (b) { b.disabled = true; });
+      db.rpc('replace_participants', { p_event: ev.id, p_rows: rows }).then(function (r) {
+        if (r.error) throw r.error;
+        dirty = false; $('dirty').hidden = true;
+        if (!publish) { msg('Saved ' + r.data + ' rows as a draft.' + (ev.status === 'completed' ? ' This event is published: the public page changes only when you republish.' : ''), 'good'); return; }
+        return db.from('events').update({ status: 'completed', published_at: new Date().toISOString() }).eq('id', ev.id).select().single().then(function (u) {
+          if (u.error) throw u.error;
+          Object.assign(ev, u.data);
+          loadEvents();
+          renderSheet();
+          msg('Published. winalumnicup.com rebuilds with these results in about a minute.', 'good');
+        });
+      }).catch(function (e) {
+        msg('Not saved: ' + esc(e.message), 'bad');
+      }).then(function () { document.querySelectorAll('.actions button').forEach(function (b) { b.disabled = false; }); });
+    }
+
+    function unpublish() {
+      if (!confirm('Unpublish ' + ev.title_en + '? Its results disappear from the public page in about a minute. The scores stay saved here.')) return;
+      db.from('events').update({ status: 'scheduled', published_at: null }).eq('id', ev.id).select().single().then(function (u) {
+        if (u.error) { fail(u.error, 'Could not unpublish'); return; }
+        Object.assign(ev, u.data);
+        loadEvents();
+        renderSheet();
+        msg('Unpublished. The results page updates in about a minute.', 'good');
+      });
+    }
+
+    // ============================================================== admins
+    var admins = [], invites = [];
+
+    function loadAdmins() {
+      $('inv-school').innerHTML = schools.map(function (s) { return '<option value="' + s.id + '">' + esc(s.emoji + ' ' + s.short_en) + '</option>'; }).join('');
+      Promise.all([db.from('admins').select('*').order('created_at'), db.from('admin_invites').select('*').order('created_at')]).then(function (r) {
+        if (r[0].error || r[1].error) { fail(r[0].error || r[1].error, 'Could not load admins'); return; }
+        admins = r[0].data; invites = r[1].data;
+        renderAdmins();
+      });
+    }
+
+    var roleOpts = [['coordinator', 'Coordinator'], ['owner', 'Owner']];
+    function schoolOpts() { return [['', '—']].concat(schools.map(function (s) { return [s.id, s.emoji + ' ' + s.short_en]; })); }
+
+    function renderAdmins() {
+      $('rows-admins').innerHTML = admins.map(function (a) {
+        var self = a.user_id === me.user_id;
+        return '<tr data-id="' + a.user_id + '"><td>' + esc(a.email) + (self ? ' <small>(you)</small>' : '') + '</td>' +
+          '<td data-f="role">' + select(roleOpts, a.role, self ? ' disabled' : '') + '</td>' +
+          '<td data-f="school_id">' + (a.role === 'owner' ? '<span class="muted">all schools</span>' : select(schoolOpts(), a.school_id)) + '</td>' +
+          '<td>' + (self ? '' : '<button type="button" class="danger" data-remove>Remove</button>') + '</td></tr>';
+      }).join('');
+      $('rows-invites').innerHTML = invites.length ? invites.map(function (i) {
+        return '<tr data-email="' + esc(i.email) + '"><td>' + esc(i.email) + '</td><td>' + esc(i.role) + '</td><td>' + (i.role === 'owner' ? 'all schools' : esc(schoolName(i.school_id))) + '</td>' +
+          '<td>' + new Date(i.created_at).toLocaleDateString('en-CA') + '</td><td><button type="button" class="danger" data-cancel>Cancel</button></td></tr>';
+      }).join('') : '<tr><td colspan="5" class="empty">Nobody is waiting.</td></tr>';
+    }
+
+    $('inv-role').addEventListener('change', function () { $('inv-school-wrap').hidden = this.value === 'owner'; });
+
+    $('invite-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var email = $('inv-email').value.trim().toLowerCase(), role = $('inv-role').value;
+      var row = { email: email, role: role, school_id: role === 'owner' ? null : $('inv-school').value, invited_by: me.user_id };
+      var m = $('inv-msg');
+      if (admins.some(function (a) { return (a.email || '').toLowerCase() === email; })) { m.hidden = false; m.className = 'msg bad'; m.textContent = email + ' is already an admin.'; return; }
+      db.from('admin_invites').upsert(row, { onConflict: 'email' }).then(function (r) {
+        m.hidden = false;
+        if (r.error) { m.className = 'msg bad'; m.textContent = r.error.message; return; }
+        m.className = 'msg good';
+        m.textContent = 'Added. Ask ' + email + ' to sign in at winalumnicup.com/admin with that email; access starts on their first sign-in.';
+        $('invite-form').reset(); $('inv-school-wrap').hidden = false;
+        loadAdmins();
+      });
+    });
+
+    $('rows-admins').addEventListener('change', function (e) {
+      var cell = e.target.closest('td[data-f]'); if (!cell) return;
+      var id = cell.parentNode.dataset.id, a = admins.find(function (x) { return x.user_id === id; });
+      var patch = {}; patch[cell.dataset.f] = e.target.value || null;
+      if (cell.dataset.f === 'role' && patch.role === 'coordinator' && !a.school_id) {
+        var pick = schools[0];
+        patch.school_id = pick.id;
+        alert('Coordinators belong to one school; ' + pick.short_en + ' was picked. Change it in the School column.');
+      }
+      db.from('admins').update(patch).eq('user_id', id).select().single().then(function (r) {
+        if (r.error) { fail(r.error, 'Could not change admin'); loadAdmins(); return; }
+        Object.assign(a, r.data); renderAdmins();
+      });
+    });
+
+    $('rows-admins').addEventListener('click', function (e) {
+      if (!e.target.hasAttribute('data-remove')) return;
+      var id = e.target.closest('tr').dataset.id, a = admins.find(function (x) { return x.user_id === id; });
+      if (!confirm('Remove admin access for ' + a.email + '?')) return;
+      db.from('admins').delete().eq('user_id', id).then(function (r) { if (r.error) fail(r.error, 'Could not remove'); loadAdmins(); });
+    });
+
+    $('rows-invites').addEventListener('click', function (e) {
+      if (!e.target.hasAttribute('data-cancel')) return;
+      var email = e.target.closest('tr').dataset.email;
+      db.from('admin_invites').delete().eq('email', email).then(function (r) { if (r.error) fail(r.error, 'Could not cancel'); loadAdmins(); });
+    });
   </script>
 </body>
-</html></parameter>
+</html>

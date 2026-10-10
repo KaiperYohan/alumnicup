@@ -9,3 +9,6 @@ Thumbs.db
 # originals to Supabase storage.
 originals/
 *.orig.jpg
+
+# Vercel build output
+dist/

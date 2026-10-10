@@ -1,13 +1,21 @@
 #!/usr/bin/env node
 /*
- * Generates the 2026 results block from data/2026.json and injects it into
- * index.html between the BUILD:RESULTS markers.
+ * Generates the 2026 results and Cup Race blocks and injects them into
+ * index.html between the BUILD markers.
  *
- * Ranks, points and team standings are all computed — you only enter names,
- * schools and raw scores/times.
+ * Scores come from Supabase: the owner enters them on admin.html and presses
+ * Publish. Only published (status = completed) events are readable with the
+ * public key, so a draft can never leak into the page. Everything else —
+ * school names and colors, event titles, rules, scoring tables, photos —
+ * comes from data/2026.json.
+ *
+ * Ranks, points and team standings are all computed (js/scoring.js).
  *
  *   node scripts/build-results.js          write index.html
  *   node scripts/build-results.js --check  print what would change, write nothing
+ *
+ * If Supabase cannot be reached the build fails rather than publishing a page
+ * without results; on Vercel that keeps the previous deployment live.
  */
 
 const fs = require('fs');
@@ -21,7 +29,49 @@ const END = '<!-- /BUILD:RESULTS-2026 -->';
 const STANDINGS_START = '<!-- BUILD:STANDINGS-2026 -->';
 const STANDINGS_END = '<!-- /BUILD:STANDINGS-2026 -->';
 
-const { realRows, scoreEvent } = require('./scoring');
+const { realRows, scoreEvent } = require('../js/scoring');
+const { fromDb } = require('../js/cup-data');
+
+/* Public URL + anon key: from the environment, else js/supabase-config.js. */
+function supabaseConfig() {
+  if (process.env.SUPABASE_URL && process.env.SUPABASE_ANON_KEY) {
+    return { url: process.env.SUPABASE_URL, key: process.env.SUPABASE_ANON_KEY };
+  }
+  const cfg = fs.readFileSync(path.join(ROOT, 'js', 'supabase-config.js'), 'utf8');
+  const get = name => (cfg.match(new RegExp(`window\\.${name} = "([^"]+)"`)) || [])[1];
+  return { url: get('SUPABASE_URL'), key: get('SUPABASE_ANON_KEY') };
+}
+
+/* Replace each event's status and results in `data` with what is published. */
+async function loadResults(data) {
+  const { createClient } = require('@supabase/supabase-js');
+  const { url, key } = supabaseConfig();
+  if (!url || !key) throw new Error('No Supabase URL/key (env or js/supabase-config.js).');
+  const db = createClient(url, key, { auth: { persistSession: false } });
+
+  const [ev, sc] = await Promise.all([
+    db.from('events').select('id, sport, status').eq('year', data.year),
+    db.from('schools').select('id, code'),
+  ]);
+  if (ev.error) throw new Error('events: ' + ev.error.message);
+  if (sc.error) throw new Error('schools: ' + sc.error.message);
+  const codeById = Object.fromEntries(sc.data.map(s => [s.id, s.code]));
+
+  const ids = ev.data.map(e => e.id);
+  const pr = ids.length ? await db.from('participants').select('*').in('event_id', ids) : { data: [] };
+  if (pr.error) throw new Error('participants: ' + pr.error.message);
+
+  for (const e of data.events) {
+    const row = ev.data.find(x => x.sport === e.sport);
+    if (!row) throw new Error(`No ${data.year} ${e.sport} event in Supabase.`);
+    const published = row.status === 'completed';
+    const res = fromDb(pr.data.filter(p => p.event_id === row.id), codeById);
+    e.status = published ? 'completed' : 'pending';
+    e.competitive = published ? res.competitive : [];
+    e.recreational = published ? res.recreational : [];
+  }
+  return data;
+}
 
 const esc = s => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 // Round to 3dp and drop trailing zeros: 13.620 -> "13.62", 50.000 -> "50".
@@ -280,14 +330,17 @@ function inject(page, start, end, html, indent) {
   return page.slice(0, i + start.length) + '\n' + html + indent + page.slice(j);
 }
 
-function main() {
+async function main() {
   const check = process.argv.includes('--check');
-  const data = JSON.parse(fs.readFileSync(DATA, 'utf8'));
+  const data = await loadResults(JSON.parse(fs.readFileSync(DATA, 'utf8')));
   const { html, summary } = build(data);
 
   const page = fs.readFileSync(HTML, 'utf8');
   let next = inject(page, START, END, html, '      ');
   next = inject(next, STANDINGS_START, STANDINGS_END, buildStandings(data), '  ');
+  // Git on Windows checks the page out with CRLF; keep whatever it has so a
+  // rebuild only shows real changes.
+  if (page.includes('\r\n')) next = next.replace(/\r?\n/g, '\r\n');
   console.log(`build-results: ${summary}`);
 
   if (next === page) { console.log('index.html already up to date.'); return; }
@@ -297,4 +350,8 @@ function main() {
   console.log(`index.html updated (2026 block is ${html.length} chars).`);
 }
 
-main();
+if (require.main === module) {
+  main().catch(e => { console.error('build-results failed:', e.message); process.exit(1); });
+}
+
+module.exports = { main };

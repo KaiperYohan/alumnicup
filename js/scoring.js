@@ -1,8 +1,10 @@
 /*
  * Scoring rules for The Alumni Cup.
  *
- * Shared by scripts/build-results.js (renders the page) and
- * scripts/import-to-supabase.js (fills the database). Keeping one copy is the
+ * Shared by scripts/build-results.js (renders the page),
+ * scripts/import-to-supabase.js (fills the database) and admin.html (live
+ * ranks while scores are typed in). Loads as a CommonJS module in Node and as
+ * window.AlumniScoring in the browser. Keeping one copy is the
  * point: if these ever diverge, the published standings and the stored
  * standings disagree and there is no way to tell which is right.
  */
@@ -108,4 +110,6 @@ function scoreEvent(event) {
   return { competitive, recreational, standings: standings(event, competitive, recreational) };
 }
 
-module.exports = { toSeconds, realRows, scoreCompetitive, scoreRecreational, standings, scoreEvent };
+const AlumniScoring = { toSeconds, realRows, scoreCompetitive, scoreRecreational, standings, scoreEvent };
+if (typeof module !== 'undefined' && module.exports) module.exports = AlumniScoring;
+else window.AlumniScoring = AlumniScoring;

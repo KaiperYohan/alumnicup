@@ -1,10 +1,9 @@
-# Not part of the public site — keep them off the deployment.
+# Never uploaded. (What is *published* is decided by scripts/vercel-build.js,
+# which copies only the public files into dist/.)
 originals/
-scripts/
 supabase/
 node_modules/
+dist/
 .env
 .env.*
 .claude/
-package.json
-package-lock.json

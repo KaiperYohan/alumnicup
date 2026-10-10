@@ -1,7 +1,13 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "installCommand": "npm ci --omit=dev",
+  "buildCommand": "node scripts/vercel-build.js",
+  "outputDirectory": "dist",
   "cleanUrls": true,
   "trailingSlash": false,
+  "redirects": [
+    { "source": "/admin-applications", "destination": "/admin", "permanent": true }
+  ],
   "headers": [
     {
       "source": "/(admin.*)",

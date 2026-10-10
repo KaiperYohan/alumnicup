@@ -125,6 +125,8 @@
     nav .lang-toggle { order: 3; background: transparent; color: white; border: 1px solid rgba(255, 255, 255, 0.6); }
     nav .lang-toggle:hover { background: rgba(255, 255, 255, 0.15); }
     .menu-apply { display: none; }
+    nav li.nav-admin[hidden] { display: none; }
+    .nav-admin a { opacity: 0.85; }
 
     nav a {
       color: white;
@@ -1196,6 +1198,7 @@
         <li><a href="#events" class="lang-en" onclick="closeMenu()">Events</a><a href="#events" class="lang-ko" onclick="closeMenu()">대회</a></li>
         <li><a href="#schools" class="lang-en" onclick="closeMenu()">Schools</a><a href="#schools" class="lang-ko" onclick="closeMenu()">참가대학</a></li>
         <li><a href="#results" class="lang-en" onclick="closeMenu()">Results</a><a href="#results" class="lang-ko" onclick="closeMenu()">결과</a></li>
+        <li class="nav-admin" hidden><a href="admin.html">⚙ Admin</a></li>
         <li class="menu-apply"><a href="apply.html" class="lang-en">Apply</a><a href="apply.html" class="lang-ko">참가 신청</a></li>
         <li><a href="#contact" class="lang-en" onclick="closeMenu()">Contact</a><a href="#contact" class="lang-ko" onclick="closeMenu()">문의</a></li>
       </ul>
@@ -1594,25 +1597,25 @@
                   <tr><td>15</td><td>박도현</td><td>Michigan</td><td>101</td><td>1.3</td></tr>
                   <tr><td>16</td><td>부성연</td><td>Michigan</td><td>113</td><td>1.11</td></tr>
                   <tr><td colspan="5" style="padding: 0.4rem 0.5rem; font-weight: bold; color: #00274c; background: #eef2f7; border-bottom: 1px solid #ddd;"><span class="lang-en">Team 1 (Recreational)</span><span class="lang-ko">일반부 1팀</span></td></tr>
-                  <tr><td></td><td>조기웅</td><td>Texas</td><td>117</td><td>1</td></tr>
-                  <tr><td></td><td>이정승</td><td>Texas</td><td>104</td><td>1</td></tr>
                   <tr class="winner"><td></td><td>🏆 김신한</td><td>Berkeley</td><td>94</td><td>1.5</td></tr>
                   <tr class="winner"><td></td><td>🏆 변스티브</td><td>Berkeley</td><td>107</td><td>1.5</td></tr>
+                  <tr><td></td><td>이정승</td><td>Texas</td><td>104</td><td>1</td></tr>
+                  <tr><td></td><td>조기웅</td><td>Texas</td><td>117</td><td>1</td></tr>
                   <tr><td colspan="5" style="padding: 0.4rem 0.5rem; font-weight: bold; color: #00274c; background: #eef2f7; border-bottom: 1px solid #ddd;"><span class="lang-en">Team 2 (Recreational)</span><span class="lang-ko">일반부 2팀</span></td></tr>
                   <tr class="winner"><td></td><td>🏆 박준용</td><td>Texas</td><td>87</td><td>1.5</td></tr>
                   <tr class="winner"><td></td><td>🏆 김건희</td><td>Texas</td><td>88</td><td>1.5</td></tr>
-                  <tr><td></td><td>이기두</td><td>Berkeley</td><td>101</td><td>1</td></tr>
                   <tr><td></td><td>신양호</td><td>Berkeley</td><td>94</td><td>1</td></tr>
+                  <tr><td></td><td>이기두</td><td>Berkeley</td><td>101</td><td>1</td></tr>
                   <tr><td colspan="5" style="padding: 0.4rem 0.5rem; font-weight: bold; color: #00274c; background: #eef2f7; border-bottom: 1px solid #ddd;"><span class="lang-en">Team 3 (Recreational)</span><span class="lang-ko">일반부 3팀</span></td></tr>
+                  <tr class="winner"><td></td><td>🏆 박홍무</td><td>Wisconsin</td><td>85</td><td>1.5</td></tr>
+                  <tr class="winner"><td></td><td>🏆 김태승</td><td>Wisconsin</td><td>96</td><td>1.5</td></tr>
                   <tr><td></td><td>장용재</td><td>Michigan</td><td>98</td><td>1</td></tr>
                   <tr><td></td><td>고연경</td><td>Michigan</td><td>108</td><td>1</td></tr>
-                  <tr class="winner"><td></td><td>🏆 김태승</td><td>Wisconsin</td><td>96</td><td>1.5</td></tr>
-                  <tr class="winner"><td></td><td>🏆 박홍무</td><td>Wisconsin</td><td>85</td><td>1.5</td></tr>
                   <tr><td colspan="5" style="padding: 0.4rem 0.5rem; font-weight: bold; color: #00274c; background: #eef2f7; border-bottom: 1px solid #ddd;"><span class="lang-en">Team 4 (Recreational)</span><span class="lang-ko">일반부 4팀</span></td></tr>
-                  <tr><td></td><td>안성진</td><td>Michigan</td><td>94</td><td>1</td></tr>
-                  <tr><td></td><td>신유진</td><td>Michigan</td><td>99</td><td>1</td></tr>
                   <tr class="winner"><td></td><td>🏆 김정욱</td><td>Wisconsin</td><td>83</td><td>1.5</td></tr>
                   <tr class="winner"><td></td><td>🏆 박현중</td><td>Wisconsin</td><td>89</td><td>1.5</td></tr>
+                  <tr><td></td><td>안성진</td><td>Michigan</td><td>94</td><td>1</td></tr>
+                  <tr><td></td><td>신유진</td><td>Michigan</td><td>99</td><td>1</td></tr>
                 </tbody>
               </table>
             </details>
@@ -2091,6 +2094,21 @@
           btn.remove();
         });
       });
+    })();
+
+    // Show the Admin link only in a browser that has signed in to admin.html
+    // (Supabase keeps its session under an "sb-<project>-auth-token" key).
+    // The admin page itself checks who you are; this only saves a visitor
+    // from seeing a link that is useless to them.
+    (function() {
+      try {
+        for (var i = 0; i < localStorage.length; i++) {
+          if (/^sb-.+-auth-token$/.test(localStorage.key(i))) {
+            document.querySelector('.nav-admin').hidden = false;
+            break;
+          }
+        }
+      } catch (e) {}
     })();
 
     // Dynamic copyright year

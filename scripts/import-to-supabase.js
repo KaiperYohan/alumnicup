@@ -49,8 +49,9 @@ if (!fs.existsSync(dataFile)) {
 }
 const data = JSON.parse(fs.readFileSync(dataFile, 'utf8'));
 
-// Reuse the generator's scoring so the DB and the page can never disagree.
-const { scoreEvent } = require('./scoring');
+// Same conversion the admin score sheet uses, so the DB rows (including
+// hand-set rank/points overrides) match what the page builder reads back.
+const { toDb } = require('../js/cup-data');
 
 (async () => {
   const rows = { schools: [], events: [], participants: [], photos: [] };
@@ -65,32 +66,20 @@ const { scoreEvent } = require('./scoring');
 
   for (const e of data.events) {
     rows.events.push({
-      year: data.year, sport: e.sport, status: e.status === 'completed' ? 'completed' : 'scheduled',
+      year: data.year, sport: e.sport,
+      // Publish status is set on the admin page; only a file that says so changes it.
+      ...(e.status ? { status: e.status === 'completed' ? 'completed' : 'scheduled' } : {}),
       event_date: e.date, title_en: e.title_en, title_ko: e.title_ko,
       venue_en: e.venue_en, venue_ko: e.venue_ko,
       scoring: e.scoring, rules_en: e.rules_en, rules_ko: e.rules_ko,
     });
   }
 
+  // Rows are built per sport with school codes; ids are filled in once the
+  // schools have been upserted.
+  const byCode = new Proxy({}, { get: (_, code) => code });
   for (const e of data.events) {
-    const { competitive, recreational } = scoreEvent(e);
-    for (const r of competitive) {
-      rows.participants.push({
-        _sport: e.sport, _school: r.school, name: r.name, division: 'competitive',
-        raw_score: e.sport === 'golf' ? r.score : null,
-        finish_time: e.sport === 'run' ? r.time : null,
-        rank: r.rank, points: r.points,
-      });
-    }
-    for (const t of recreational) {
-      for (const p of t.players) {
-        rows.participants.push({
-          _sport: e.sport, _school: t.school, name: p.name, division: 'recreational',
-          match_no: t.match, team_result: t.result,
-          raw_score: p.score ?? null, points: t.points,
-        });
-      }
-    }
+    for (const p of toDb(e, byCode)) rows.participants.push({ ...p, _sport: e.sport, _school: p.school_id });
   }
 
   let order = 0;
@@ -133,6 +122,13 @@ const { scoreEvent } = require('./scoring');
   // Participants have no natural key, so replace them per event rather than
   // upserting — re-running the import must not duplicate the field.
   for (const sport of Object.keys(eventId)) {
+    // Scores are entered on the admin page now, and the JSON no longer has
+    // them. Never let an empty file wipe what is in the database.
+    const fromFile = rows.participants.filter(p => p._sport === sport).length;
+    if (!fromFile && !flags.force) {
+      const { count } = await db.from('participants').select('id', { count: 'exact', head: true }).eq('event_id', eventId[sport]);
+      if (count) { console.log(`kept ${count} ${sport} participants (file has none; pass --force to wipe)`); continue; }
+    }
     const batch = rows.participants
       .filter(p => p._sport === sport)
       .map(({ _sport, _school, ...p }) => ({ ...p, event_id: eventId[sport], school_id: schoolId[_school] }));
