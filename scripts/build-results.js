@@ -18,6 +18,8 @@ const DATA = path.join(ROOT, 'data', '2026.json');
 const HTML = path.join(ROOT, 'index.html');
 const START = '<!-- BUILD:RESULTS-2026 -->';
 const END = '<!-- /BUILD:RESULTS-2026 -->';
+const STANDINGS_START = '<!-- BUILD:STANDINGS-2026 -->';
+const STANDINGS_END = '<!-- /BUILD:STANDINGS-2026 -->';
 
 const { realRows, scoreEvent } = require('./scoring');
 
@@ -166,7 +168,7 @@ function build(data) {
       <!-- 2026 Results - Collapsible -->
       <details class="results-year" open>
         <summary class="results-year-summary">
-          <span class="triangle">▼</span>
+          <span class="triangle" aria-hidden="true"></span>
           <span class="lang-en">🏆 2026 Results</span>
           <span class="lang-ko">🏆 2026 대회 결과</span>
         </summary>
@@ -184,19 +186,92 @@ ${photos}
   return { html, summary: `${done.length} event(s), ${names.size} participants, ${(data.photos || []).reduce((n, g) => n + (g.items || []).length, 0)} photos` };
 }
 
+/*
+ * The overall Cup race: each school's points per event, summed. Shown near the
+ * top of the page so visitors can see who leads between events, not only once
+ * the last one is done.
+ */
+function buildStandings(data) {
+  const S = schoolMap(data.schools);
+  const events = data.events;
+  const done = events.filter(e => e.status === 'completed');
+  if (!done.length) return '';
+
+  const perEvent = {};
+  for (const e of done) {
+    perEvent[e.sport] = Object.fromEntries(scoreEvent(e).standings.map(r => [r.school, r.points]));
+  }
+  const rows = data.schools.map(s => ({
+    code: s.code,
+    byEvent: events.map(e => perEvent[e.sport] ? (perEvent[e.sport][s.code] || 0) : null),
+    total: done.reduce((n, e) => n + (perEvent[e.sport][s.code] || 0), 0),
+  })).sort((a, b) => b.total - a.total);
+  const top = rows[0].total || 1;
+  const next = events.find(e => e.status !== 'completed');
+
+  const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  const [, mm, dd] = next ? next.date.split('-').map(Number) : [];
+  const nameEn = { golf: 'Golf', run: '10K' }, nameKo = { golf: '골프', run: '10K' };
+  // The countdown text itself is filled in by the page script, so it stays
+  // correct without a rebuild every day.
+  const countdown = next ? ` <span class="countdown" data-countdown="${next.date}"></span>` : '';
+  const statusEn = next
+    ? `After ${done.length} of ${events.length} events · Next: ${nameEn[next.sport]}, ${MONTHS[mm - 1]} ${dd}${countdown}`
+    : 'Final standings';
+  const statusKo = next
+    ? `${events.length}개 종목 중 ${done.length}개 종료 · 다음: ${nameKo[next.sport]} ${mm}월 ${dd}일${countdown}`
+    : '최종 순위';
+
+  const head = events.map(e =>
+    `<th class="num"><span class="lang-en">${nameEn[e.sport]}</span><span class="lang-ko">${nameKo[e.sport]}</span></th>`).join('');
+
+  let h = `
+  <section class="cup-race" id="standings" aria-labelledby="cup-race-title">
+    <div class="cup-race-head">
+      <h2 id="cup-race-title"><span class="lang-en">${data.year} Cup Race</span><span class="lang-ko">${data.year} 종합 순위</span></h2>
+      <p class="cup-race-status"><span class="lang-en">${statusEn}</span><span class="lang-ko">${statusKo}</span></p>
+    </div>
+    <table class="cup-race-table">
+      <thead><tr><th class="rank">#</th><th><span class="lang-en">School</span><span class="lang-ko">학교</span></th>${head}<th class="num"><span class="lang-en">Total</span><span class="lang-ko">합계</span></th></tr></thead>
+      <tbody>`;
+  rows.forEach((r, i) => {
+    const s = S[r.code];
+    const cells = r.byEvent.map(v => `<td class="num">${v === null ? '<span class="tbd">–</span>' : fmt(v)}</td>`).join('');
+    h += `
+        <tr${i === 0 ? ' class="leader"' : ''}>
+          <td class="rank">${i + 1}</td>
+          <td class="school-cell">
+            <span class="lang-en">${esc(s.emoji)} ${esc(s.short_en)}</span><span class="lang-ko">${esc(s.emoji)} ${esc(s.short_ko)}</span>
+            <span class="bar" aria-hidden="true"><span style="width: ${(100 * r.total / top).toFixed(1)}%"></span></span>
+          </td>${cells}
+          <td class="num total">${fmt(r.total)}</td>
+        </tr>`;
+  });
+  return h + `
+      </tbody>
+    </table>
+    <a class="cup-race-link" href="#results"><span class="lang-en">Full results &amp; photos →</span><span class="lang-ko">전체 결과 및 사진 보기 →</span></a>
+  </section>
+`;
+}
+
+function inject(page, start, end, html, indent) {
+  const i = page.indexOf(start), j = page.indexOf(end);
+  if (i === -1 || j === -1) {
+    console.error(`Markers not found in index.html. Expected:\n  ${start}\n  ${end}`);
+    process.exit(1);
+  }
+  return page.slice(0, i + start.length) + '\n' + html + indent + page.slice(j);
+}
+
 function main() {
   const check = process.argv.includes('--check');
   const data = JSON.parse(fs.readFileSync(DATA, 'utf8'));
   const { html, summary } = build(data);
 
-  let page = fs.readFileSync(HTML, 'utf8');
-  const i = page.indexOf(START), j = page.indexOf(END);
-  if (i === -1 || j === -1) {
-    console.error(`Markers not found in index.html. Expected:\n  ${START}\n  ${END}`);
-    process.exit(1);
-  }
-
-  const next = page.slice(0, i + START.length) + '\n' + html + '      ' + page.slice(j);
+  const page = fs.readFileSync(HTML, 'utf8');
+  let next = inject(page, START, END, html, '      ');
+  next = inject(next, STANDINGS_START, STANDINGS_END, buildStandings(data), '  ');
   console.log(`build-results: ${summary}`);
 
   if (next === page) { console.log('index.html already up to date.'); return; }
