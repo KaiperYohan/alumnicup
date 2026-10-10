@@ -1,0 +1,340 @@
+{
+  "_comment": "2025 inaugural Cup. Transcribed from the hand-written results that were on index.html until 2026-10-10. Static: not in Supabase.",
+  "year": 2025,
+  "source": "file",
+  "edition_en": "The 1st Alumni Cup · Inaugural",
+  "edition_ko": "제1회 알룸나이 컵 · 창립 대회",
+  "participants_en": "Over 36 alumni participated.",
+  "participants_ko": "36명 이상의 동문이 참가했습니다.",
+  "schools": [
+    {
+      "code": "texas",
+      "emoji": "🤘",
+      "name_en": "University of Texas",
+      "name_ko": "텍사스 대학교",
+      "short_en": "Texas",
+      "short_ko": "텍사스",
+      "color": "#BF5700"
+    },
+    {
+      "code": "michigan",
+      "emoji": "〽️",
+      "name_en": "University of Michigan",
+      "name_ko": "미시간 대학교",
+      "short_en": "Michigan",
+      "short_ko": "미시간",
+      "color": "#FFCB05"
+    }
+  ],
+  "events": [
+    {
+      "sport": "golf",
+      "status": "completed",
+      "date": "2025-10",
+      "title_en": "⛳ Golf Championship",
+      "title_ko": "⛳ 골프 챔피언십",
+      "venue_en": "New Springville",
+      "venue_ko": "뉴스프링빌",
+      "scoring": {
+        "order": "asc",
+        "rank_points": [
+          1.5,
+          1.357,
+          1.214,
+          1.071,
+          0.929,
+          0.786,
+          0.643,
+          0.5
+        ],
+        "team_match_points": {
+          "win": 0.6,
+          "loss": 0.4
+        }
+      },
+      "published_standings": {
+        "texas": 5.857,
+        "michigan": 4.143
+      },
+      "competitive": [
+        {
+          "name": "김희원",
+          "school": "texas",
+          "score": 80
+        },
+        {
+          "name": "김건희",
+          "school": "texas",
+          "score": 81
+        },
+        {
+          "name": "김수환",
+          "school": "michigan",
+          "score": 82
+        },
+        {
+          "name": "김희준",
+          "school": "texas",
+          "score": 83
+        },
+        {
+          "name": "김현수",
+          "school": "texas",
+          "score": 85
+        },
+        {
+          "name": "조아인",
+          "school": "michigan",
+          "score": 100
+        },
+        {
+          "name": "제니",
+          "school": "michigan",
+          "score": 101
+        },
+        {
+          "name": "신유진",
+          "school": "michigan",
+          "score": 102
+        }
+      ],
+      "recreational": [
+        {
+          "match": 1,
+          "teams": [
+            {
+              "school": "michigan",
+              "result": "win",
+              "players": [
+                {
+                  "name": "안성진",
+                  "score": 90
+                },
+                {
+                  "name": "길정현",
+                  "score": 90
+                }
+              ]
+            },
+            {
+              "school": "texas",
+              "result": "loss",
+              "players": [
+                {
+                  "name": "김요한",
+                  "score": 87
+                },
+                {
+                  "name": "정해성",
+                  "score": 101
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "match": 2,
+          "teams": [
+            {
+              "school": "texas",
+              "result": "win",
+              "players": [
+                {
+                  "name": "이민지",
+                  "score": 102
+                },
+                {
+                  "name": "한성연",
+                  "score": 109
+                }
+              ]
+            },
+            {
+              "school": "michigan",
+              "result": "loss",
+              "players": [
+                {
+                  "name": "고연경",
+                  "score": 111
+                },
+                {
+                  "name": "장영태",
+                  "score": 131
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "rules_en": "- 4 vs. 4 individual matches(competitive) + 2 teams matches(recreational).\n- 1~8 ranking gets designated points (1.5, 1.357, 1.214, 1.071, 0.929, 0.786, 0.643, 0.5) total 8 points\n- For two team matches winning team takes 0.6 points while the losing team takes 0.4 total 2 points.\n- 2 mulligans, one each front and back.\n- Putter length concede.",
+      "rules_ko": "- 선수부 4 vs. 4는 개인전으로 일반부 4 vs. 4는 팀전으로 치뤄집니다.\n- 선수부의 1~8등 까지는 총 8점내 다음 같은 차등 포인트를 획득힙니다. (1.5, 1.357, 1.214, 1.071, 0.929, 0.786, 0.643, 0.5)\n- 일반부 2팀은 이긴팀은 0.6점 진 팀은 0.4점을 획득합니다.\n- 멀리건은 전후반 한개씩 사용가능합니다.\n- 퍼터 거리 오케이.\n- 맥스 트리플까지 카운트합니다."
+    },
+    {
+      "sport": "run",
+      "status": "completed",
+      "date": "2025-11",
+      "title_en": "🏃 10K Run Championship",
+      "title_ko": "🏃 10K 마라톤 챔피언십",
+      "venue_en": "MBN Seoul Marathon",
+      "venue_ko": "MBN 서울마라톤",
+      "scoring": {
+        "order": "asc"
+      },
+      "published_standings": {
+        "texas": 5.728,
+        "michigan": 4.272
+      },
+      "show_points": false,
+      "competitive": [
+        {
+          "name": "정상민",
+          "school": "texas",
+          "time": "0:38:37"
+        },
+        {
+          "name": "안성진",
+          "school": "michigan",
+          "time": "0:39:04"
+        },
+        {
+          "name": "김준성",
+          "school": "michigan",
+          "time": "0:40:54"
+        },
+        {
+          "name": "김요한",
+          "school": "texas",
+          "time": "0:43:19"
+        },
+        {
+          "name": "조용훈",
+          "school": "texas",
+          "time": "0:43:25"
+        },
+        {
+          "name": "민병준",
+          "school": "texas",
+          "time": "0:43:48"
+        },
+        {
+          "name": "김기섭",
+          "school": "texas",
+          "time": "0:43:53"
+        },
+        {
+          "name": "박종현",
+          "school": "texas",
+          "time": "0:44:00"
+        },
+        {
+          "name": "최보람",
+          "school": "michigan",
+          "time": "0:45:25",
+          "badge_en": "Fastest woman",
+          "badge_ko": "여자 1위"
+        },
+        {
+          "name": "신유진",
+          "school": "michigan",
+          "time": "0:47:54"
+        },
+        {
+          "name": "김범식",
+          "school": "michigan",
+          "time": "0:50:24"
+        },
+        {
+          "name": "김용현",
+          "school": "michigan",
+          "time": "0:52:48"
+        },
+        {
+          "name": "장우진",
+          "school": "texas",
+          "time": "0:53:35"
+        },
+        {
+          "name": "안지현",
+          "school": "texas",
+          "time": "0:54:12"
+        },
+        {
+          "name": "이태훈",
+          "school": "michigan",
+          "time": "0:57:22"
+        },
+        {
+          "name": "강정호",
+          "school": "michigan",
+          "time": "0:57:45"
+        },
+        {
+          "name": "조성민",
+          "school": "michigan",
+          "time": "0:57:47"
+        },
+        {
+          "name": "김주해",
+          "school": "texas",
+          "time": "1:00:02"
+        },
+        {
+          "name": "이신영",
+          "school": "michigan",
+          "time": "1:06:29"
+        }
+      ],
+      "rules_en": "- 10 vs. 10 on 10k race. (At least 2 female participants)\n- Total 8 points divided into ranks. (0.64, 0.615, 0.589, 0.564, 0.539, 0.514, 0.488, 0.463, 0.438, 0.413, 0.387, 0.362, 0.337, 0.312, 0.286, 0.261, 0.236, 0.211, 0.185, 0.16)\n- The total average winning team gets 1 point\n- The team with the fastest female runner gets 0.6 points.",
+      "rules_ko": "- 10 대 10 10k 대결 (여자 참가자 최소 2명 참석)\n- 총 8점이 1~20등까지 차등 분배 (0.64, 0.615, 0.589, 0.564, 0.539, 0.514, 0.488, 0.463, 0.438, 0.413, 0.387, 0.362, 0.337, 0.312, 0.286, 0.261, 0.236, 0.211, 0.185, 0.16)\n- 전체 평균 우승학교 1점 획득\n- 여자 우승 학교 0.6점 획득"
+    }
+  ],
+  "photos": [
+    {
+      "category_en": "⛳ Golf Competition",
+      "category_ko": "⛳ 골프 대회",
+      "single": true,
+      "items": [
+        {
+          "src": "pic/golf.jpg",
+          "alt": "Alumni Cup 2025 golf competition group photo at New Springville"
+        }
+      ]
+    },
+    {
+      "category_en": "🏃 10K Run",
+      "category_ko": "🏃 10K 마라톤",
+      "items": [
+        {
+          "src": "pic/run.jpg",
+          "alt": "Alumni runners competing in the MBN Seoul 10K Marathon"
+        },
+        {
+          "src": "pic/run2.jpg",
+          "alt": "Texas and Michigan alumni during the 10K race"
+        },
+        {
+          "src": "pic/run3.jpg",
+          "alt": "Alumni crossing the finish line at the 10K marathon"
+        }
+      ]
+    },
+    {
+      "category_en": "🏆 Award Ceremony",
+      "category_ko": "🏆 시상식",
+      "items": [
+        {
+          "src": "pic/run-win.jpg",
+          "alt": "10K run winners receiving their awards"
+        },
+        {
+          "src": "pic/team-win.jpg",
+          "alt": "Winning team celebrating with the Alumni Cup trophy"
+        },
+        {
+          "src": "pic/school-win.jpg",
+          "alt": "School champions at the Alumni Cup award ceremony"
+        }
+      ]
+    }
+  ]
+}

@@ -21,7 +21,7 @@ const OUT = path.join(ROOT, 'dist');
 const PUBLIC = [
   'index.html', 'apply.html', 'admin.html',
   'favicon2.png', 'alumni-cup.jpg', 'robots.txt', 'sitemap.xml',
-  'js', 'pic',
+  'css', 'js', 'pic', 'results',
 ];
 
 (async () => {

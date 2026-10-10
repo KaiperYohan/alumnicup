@@ -51,8 +51,15 @@ open `index.html`. `npm run check:results` reports without writing.
 - **Supabase:** scores, which events are published, applications, admins.
 - **`data/2026.json`:** school names and colors, event titles, rules and
   scoring tables, photos.
-- **`index.html`:** everything else on the page. The blocks between the
-  `BUILD:` markers are generated; don't edit inside them.
+- **`data/2025.json`:** the whole 2025 Cup, results included (`"source": "file"`).
+  Its 10K uses the published team scores, because 2025 had bonuses the
+  scoring code doesn't model.
+- **`results/<year>.html`:** one page per year, generated from the above.
+  Don't edit by hand. A new `data/<year>.json` adds a year tab and a
+  Champions card automatically.
+- **`index.html`:** everything else on the home page. The blocks between the
+  `BUILD:` markers (Cup Race, Champions) are generated; don't edit inside them.
+  Shared styles and scripts live in `css/site.css` and `js/site.js`.
 
 Two lines on the page are still written by hand and need updating after each
 event: the announcement bar and the golf/10K event-card status.

@@ -1,6 +1,8 @@
 {
   "_comment": "School details, event titles/rules/scoring and photos. Scores and publish status live in Supabase: enter them on winalumnicup.com/admin (Scores tab). The 2026 golf results were imported from this file on 2026-10-10; see git history for the original rows.",
   "year": 2026,
+  "edition_en": "The 2nd Alumni Cup",
+  "edition_ko": "제2회 알룸나이 컵",
   "schools": [
     {
       "code": "texas",
