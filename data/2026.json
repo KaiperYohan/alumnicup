@@ -8,7 +8,8 @@
       "name_en": "University of Texas",
       "name_ko": "텍사스 대학교",
       "short_en": "Texas",
-      "short_ko": "텍사스"
+      "short_ko": "텍사스",
+      "color": "#BF5700"
     },
     {
       "code": "michigan",
@@ -16,7 +17,8 @@
       "name_en": "University of Michigan",
       "name_ko": "미시간 대학교",
       "short_en": "Michigan",
-      "short_ko": "미시간"
+      "short_ko": "미시간",
+      "color": "#FFCB05"
     },
     {
       "code": "wisconsin",
@@ -24,7 +26,8 @@
       "name_en": "University of Wisconsin",
       "name_ko": "위스콘신 대학교",
       "short_en": "Wisconsin",
-      "short_ko": "위스콘신"
+      "short_ko": "위스콘신",
+      "color": "#C5050C"
     },
     {
       "code": "berkeley",
@@ -32,7 +35,8 @@
       "name_en": "UC Berkeley",
       "name_ko": "캘리포니아 대학교 버클리",
       "short_en": "Berkeley",
-      "short_ko": "버클리"
+      "short_ko": "버클리",
+      "color": "#003262"
     }
   ],
   "events": [

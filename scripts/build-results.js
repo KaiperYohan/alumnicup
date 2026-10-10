@@ -44,15 +44,17 @@ function renderEvent(event, S) {
             <h3 class="lang-en">${esc(event.title_en)}</h3>
             <h3 class="lang-ko">${esc(event.title_ko)}</h3>`;
 
+  const best = Math.max(...table.map(r => r.points)) || 1;
   for (const row of table) {
     const s = S[row.school] || { name_en: row.school, name_ko: row.school };
     const trophy = row.rank === 1 ? '🏆 ' : '';
     h += `
-            <div class="result-row">
+            <div class="result-row${row.rank === 1 ? ' first' : ''}">
               <span class="school lang-en">${trophy}${esc(s.name_en)}</span>
               <span class="school lang-ko">${trophy}${esc(s.name_ko)}</span>
-              <span class="score lang-en">Team Score: ${fmt(row.points)}</span>
-              <span class="score lang-ko">팀 점수: ${fmt(row.points)}</span>
+              <span class="score lang-en">${fmt(row.points)} <small>pts</small></span>
+              <span class="score lang-ko">${fmt(row.points)} <small>점</small></span>
+              <span class="result-bar" aria-hidden="true"><span style="width: ${(100 * row.points / best).toFixed(1)}%; background: ${esc(s.color || '#00274c')}"></span></span>
             </div>`;
   }
 
@@ -114,9 +116,15 @@ function renderEvent(event, S) {
   return h;
 }
 
+// Categories shown before the "View all" button. The rest are in the page
+// (the lightbox steps through them too) but hidden until asked for, so the
+// gallery does not turn the results section into a very long scroll.
+const PHOTO_CATEGORIES_SHOWN = 2;
+
 function renderPhotos(groups) {
   const live = (groups || []).filter(g => g && (g.items || []).length);
   if (!live.length) return '';
+  const total = live.reduce((n, g) => n + g.items.length, 0);
   let h = `
           <!-- Photo Gallery -->
           <div class="photo-gallery">
@@ -124,9 +132,10 @@ function renderPhotos(groups) {
               <span class="lang-en">📸 2026 Event Photos</span>
               <span class="lang-ko">📸 2026 대회 사진</span>
             </h3>`;
-  for (const g of live) {
+  live.forEach((g, gi) => {
+    const extra = gi >= PHOTO_CATEGORIES_SHOWN;
     h += `
-            <div class="photo-category">
+            <div class="photo-category${extra ? ' more' : ''}"${extra ? ' hidden' : ''}>
               <h4 class="photo-category-title">
                 <span class="lang-en">${esc(g.category_en)}</span>
                 <span class="lang-ko">${esc(g.category_ko)}</span>
@@ -144,6 +153,13 @@ function renderPhotos(groups) {
     h += `
               </div>
             </div>`;
+  });
+  if (live.length > PHOTO_CATEGORIES_SHOWN) {
+    h += `
+            <button type="button" class="photo-more">
+              <span class="lang-en">View all ${total} photos</span>
+              <span class="lang-ko">사진 ${total}장 모두 보기</span>
+            </button>`;
   }
   return h + `
           </div>`;
@@ -242,7 +258,7 @@ function buildStandings(data) {
           <td class="rank">${i + 1}</td>
           <td class="school-cell">
             <span class="lang-en">${esc(s.emoji)} ${esc(s.short_en)}</span><span class="lang-ko">${esc(s.emoji)} ${esc(s.short_ko)}</span>
-            <span class="bar" aria-hidden="true"><span style="width: ${(100 * r.total / top).toFixed(1)}%"></span></span>
+            <span class="bar" aria-hidden="true"><span style="width: ${(100 * r.total / top).toFixed(1)}%; background: ${esc(s.color || '#00274c')}"></span></span>
           </td>${cells}
           <td class="num total">${fmt(r.total)}</td>
         </tr>`;
