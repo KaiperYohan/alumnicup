@@ -377,11 +377,118 @@
   ],
   "photos": [
     {
-      "_comment": "Run `npm run photos` first — it compresses and lists filenames for you.",
-      "category_en": "⛳ Golf Competition",
-      "category_ko": "⛳ 골프 대회",
+      "category_en": "⛳ Golf — Group Photo",
+      "category_ko": "⛳ 골프 — 단체 사진",
       "single": true,
-      "items": []
+      "items": [
+        {
+          "src": "pic/2026/golf-group.jpg",
+          "alt": "All four schools at the 2026 Alumni Cup golf championship, Orange Dunes Yeongjong"
+        }
+      ]
+    },
+    {
+      "category_en": "🏫 School Teams",
+      "category_ko": "🏫 학교별 사진",
+      "items": [
+        {
+          "src": "pic/2026/golf-texas.jpg",
+          "alt": "University of Texas alumni golf team",
+          "position": "center 75%"
+        },
+        {
+          "src": "pic/2026/golf-michigan.jpg",
+          "alt": "University of Michigan alumni golf team"
+        },
+        {
+          "src": "pic/2026/golf-wisconsin.jpg",
+          "alt": "University of Wisconsin alumni golf team",
+          "position": "center 75%"
+        },
+        {
+          "src": "pic/2026/golf-berkeley.jpg",
+          "alt": "UC Berkeley alumni golf team",
+          "position": "center 75%"
+        }
+      ]
+    },
+    {
+      "category_en": "👥 Groups on the Course",
+      "category_ko": "👥 조별 사진",
+      "items": [
+        {
+          "src": "pic/2026/golf-team-1.jpg",
+          "alt": "Golfers on the green at sunrise"
+        },
+        {
+          "src": "pic/2026/golf-team-2.jpg",
+          "alt": "Golfers on the tee giving a thumbs up",
+          "position": "center 72%"
+        },
+        {
+          "src": "pic/2026/golf-team-3.jpg",
+          "alt": "Golfers in the Orange Dunes photo frame",
+          "position": "center 55%"
+        },
+        {
+          "src": "pic/2026/golf-team-4.jpg",
+          "alt": "Golfers under a plane passing overhead",
+          "position": "center 70%"
+        },
+        {
+          "src": "pic/2026/golf-team-5.jpg",
+          "alt": "Golfers on the green in the morning",
+          "position": "center 72%"
+        }
+      ]
+    },
+    {
+      "category_en": "🏅 Individual Awards",
+      "category_ko": "🏅 개인 시상",
+      "items": [
+        {
+          "src": "pic/2026/golf-award-1.jpg",
+          "alt": "Men's individual winner award",
+          "position": "center 60%"
+        },
+        {
+          "src": "pic/2026/golf-award-2.jpg",
+          "alt": "Women's individual winner award",
+          "position": "center 55%"
+        }
+      ]
+    },
+    {
+      "category_en": "🎤 Results & Lunch",
+      "category_ko": "🎤 결과 발표 & 오찬",
+      "items": [
+        {
+          "src": "pic/2026/golf-event-1.jpg",
+          "alt": "Results announcement with the standings on screen"
+        },
+        {
+          "src": "pic/2026/golf-event-2.jpg",
+          "alt": "Alumni applauding at the awards lunch",
+          "position": "center 60%"
+        },
+        {
+          "src": "pic/2026/golf-event-3.jpg",
+          "alt": "Presenting the golf standings"
+        },
+        {
+          "src": "pic/2026/golf-event-4.jpg",
+          "alt": "Alumni at lunch with the results on screen"
+        },
+        {
+          "src": "pic/2026/golf-event-5.jpg",
+          "alt": "Speaker at the awards lunch",
+          "position": "center 20%"
+        },
+        {
+          "src": "pic/2026/golf-event-6.jpg",
+          "alt": "Awards lunch at Orange Dunes"
+        }
+      ]
     },
     {
       "category_en": "🏃 10K Run",

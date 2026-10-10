@@ -133,8 +133,11 @@ function renderPhotos(groups) {
     for (const it of g.items) {
       const src = typeof it === 'string' ? it : it.src;
       const alt = typeof it === 'string' ? 'Alumni Cup 2026' : (it.alt || 'Alumni Cup 2026');
+      // The grid crops every photo to a fixed height; `position` (CSS
+      // object-position, e.g. "center 85%") keeps people in tall shots in frame.
+      const pos = typeof it === 'object' && it.position ? ` style="object-position: ${esc(it.position)}"` : '';
       h += `
-                <img src="${esc(src)}" alt="${esc(alt)}" loading="lazy">`;
+                <img src="${esc(src)}" alt="${esc(alt)}" loading="lazy"${pos}>`;
     }
     h += `
               </div>
