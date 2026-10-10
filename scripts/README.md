@@ -97,11 +97,12 @@ open to the internet. Applications are insert-only for the public, with no
 public read, so one applicant cannot pull everyone else's email and phone out
 of the table. Participants are publicly readable only for published events.
 
-**Publish → rebuild** is wired outside the repo:
-
-1. Vercel → Project → Settings → Git → **Deploy Hooks**: a hook on `main`.
-2. Supabase → Database → **Webhooks**: on `events` UPDATE, HTTP POST to that
-   hook URL.
+**Publish → rebuild:** any UPDATE on `events` fires a trigger
+(`0005_publish_rebuild.sql`, run with the real URL in place of the
+placeholder) that POSTs to a Vercel **Deploy Hook** on `main`. The hook URL
+lives only in that database function and in Vercel → Settings → Git; never
+commit it. Each production build stamps `<meta name="alumnicup-built">` on the
+page, so a fresh timestamp confirms a Publish went through.
 
 `npm run db:import` copies `data/<year>.json` into Supabase. It was used once
 to load the 2026 golf results; don't re-run it for 2026, because the JSON no
