@@ -1,0 +1,10 @@
+# Not part of the public site — keep them off the deployment.
+originals/
+scripts/
+supabase/
+node_modules/
+.env
+.env.*
+.claude/
+package.json
+package-lock.json

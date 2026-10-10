@@ -157,6 +157,52 @@
       font-weight: 500;
     }
 
+    /* Defending champion badge (hero) */
+    .champion {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.9rem;
+      background: rgba(255, 255, 255, 0.12);
+      border: 2px solid rgba(255, 255, 255, 0.55);
+      border-radius: 14px;
+      padding: 0.7rem 1.4rem 0.7rem 1rem;
+      margin-bottom: 2rem;
+      color: white;
+      text-decoration: none;
+      text-align: left;
+    }
+    .champion:hover { background: rgba(255, 255, 255, 0.2); }
+    .champion .cup { font-size: 2.4rem; line-height: 1; }
+    .champion .label {
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      opacity: 0.9;
+    }
+    .champion .name { font-size: 1.35rem; font-weight: bold; line-height: 1.25; }
+    body:not(.korean) .champion .lang-en, body.korean .champion .lang-ko { display: block !important; }
+
+    /* Apply panel (replaces the old Google Form) */
+    .apply-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      max-width: 700px;
+      margin: 2rem auto;
+    }
+    .apply-option {
+      background: white;
+      border-radius: 10px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      text-decoration: none;
+      color: #333;
+      border: 2px solid transparent;
+      transition: border-color 0.2s;
+    }
+    .apply-option:hover { border-color: #bf5700; }
+    .apply-option strong { display: block; color: #00274c; font-size: 1.15rem; margin-bottom: 0.3rem; }
+
     /* Hero Section */
     .hero {
       background: linear-gradient(rgba(0, 39, 76, 0.8), rgba(191, 87, 0, 0.8)),
@@ -790,6 +836,11 @@
         padding: 0.4rem 0.8rem;
       }
 
+      .champion { padding: 0.6rem 1rem 0.6rem 0.8rem; gap: 0.7rem; }
+      .champion .cup { font-size: 2rem; }
+      .champion .name { font-size: 1.1rem; }
+      .apply-options { grid-template-columns: 1fr; }
+
       /* Hero */
       .hero {
         padding: 4rem 1.2rem;
@@ -1030,12 +1081,21 @@
 
   <!-- Hero Section -->
   <section id="home" class="hero">
+    <a href="#results" class="champion">
+      <span class="cup" aria-hidden="true">🏆</span>
+      <span>
+        <span class="label lang-en">Defending Champion · 2025</span>
+        <span class="label lang-ko">디펜딩 챔피언 · 2025</span>
+        <span class="name lang-en">🤘 University of Texas</span>
+        <span class="name lang-ko">🤘 텍사스 대학교</span>
+      </span>
+    </a>
     <h1 class="lang-en">The Alumni Cup</h1>
     <h1 class="lang-ko">알룸나이 컵</h1>
     <p class="lang-en">Where University Alumni Compete in Golf & 10K Running</p>
     <p class="lang-ko">대학 동문들이 골프와 10K 마라톤으로 경쟁하는 대회</p>
-    <a href="#join" class="cta-button lang-en">Join the Competition</a>
-    <a href="#join" class="cta-button lang-ko">참가 신청하기</a>
+    <a href="apply.html" class="cta-button lang-en">Join the Competition</a>
+    <a href="apply.html" class="cta-button lang-ko">참가 신청하기</a>
     <a href="#about" class="cta-button secondary lang-en">Learn More</a>
     <a href="#about" class="cta-button secondary lang-ko">자세히 보기</a>
   </section>
@@ -1699,13 +1759,15 @@
         <p>🐻 캘리포니아 대학교 버클리</p>
       </div>
       <p class="lang-en join-registration">
-        <strong>Registration opens March 2026!</strong>
+        <strong>Applications are open.</strong> Play for your school, or bring a new school into the Cup.
       </p>
       <p class="lang-ko join-registration">
-        <strong>등록은 2026년 3월 시작!</strong>
+        <strong>참가 신청을 받고 있습니다.</strong> 모교 대표로 참가하거나, 새로운 학교의 참가를 신청하세요.
       </p>
-      <a href="#contact" class="cta-button secondary lang-en">Contact Us for More Info</a>
-      <a href="#contact" class="cta-button secondary lang-ko">자세한 정보 문의하기</a>
+      <a href="apply.html" class="cta-button lang-en">Apply to Play</a>
+      <a href="apply.html" class="cta-button lang-ko">선수 참가 신청</a>
+      <a href="apply.html#school" class="cta-button secondary lang-en">Bring Your School</a>
+      <a href="apply.html#school" class="cta-button secondary lang-ko">학교 참가 신청</a>
     </section>
   </div>
 
@@ -1721,18 +1783,17 @@
         대회에 대한 질문이 있으신가요? 귀교의 참가에 관심이 있으신가요? 아래로 문의해주세요!
       </p>
 
-      <div class="contact-form">
-        <iframe
-          src="https://docs.google.com/forms/d/e/1FAIpQLSfPvdAoYA28S_AQExCkaEArfcBwYZUQrnpfkdYTTUL978_C7g/viewform?embedded=true"
-          width="100%"
-          height="800"
-          frameborder="0"
-          marginheight="0"
-          marginwidth="0"
-          loading="lazy"
-          style="border-radius: 10px;">
-          Loading…
-        </iframe>
+      <div class="apply-options">
+        <a class="apply-option" href="apply.html">
+          <strong><span class="lang-en">🙋 I want to play</span><span class="lang-ko">🙋 선수로 참가</span></strong>
+          <span class="lang-en">Apply as an individual alum for golf, the 10K, or both.</span>
+          <span class="lang-ko">골프, 10K 또는 둘 다 — 개인 동문 참가 신청</span>
+        </a>
+        <a class="apply-option" href="apply.html#school">
+          <strong><span class="lang-en">🏫 Bring my school</span><span class="lang-ko">🏫 학교 참가 신청</span></strong>
+          <span class="lang-en">For alumni associations that want to join the Cup.</span>
+          <span class="lang-ko">대회 참가를 원하는 동문회 신청</span>
+        </a>
       </div>
 
       <div class="lang-en contact-info">
@@ -1741,7 +1802,7 @@
         〽️ <strong>Michigan:</strong> Ahn, Sungjin (안성진) — <a href="mailto:mwsmd@naver.com">mwsmd@naver.com</a><br>
         🦡 <strong>Wisconsin:</strong> Yoon, Junhyuk (윤준혁) — <a href="mailto:AlumniCup.Badgers@gmail.com">AlumniCup.Badgers@gmail.com</a><br>
         🐻 <strong>Berkeley:</strong> Daniel Song (송다니엘) — <a href="mailto:ucberkeley-alumnicup@googlegroups.com">ucberkeley-alumnicup@googlegroups.com</a><br><br>
-        📱 Contact form submissions reviewed within 48 hours
+        📱 Applications are reviewed within 48 hours
       </div>
       <div class="lang-ko contact-info">
         <strong>대회 운영진:</strong><br>
@@ -1749,7 +1810,7 @@
         〽️ <strong>미시간:</strong> Ahn, Sungjin (안성진) — <a href="mailto:mwsmd@naver.com">mwsmd@naver.com</a><br>
         🦡 <strong>위스콘신:</strong> Yoon, Junhyuk (윤준혁) — <a href="mailto:AlumniCup.Badgers@gmail.com">AlumniCup.Badgers@gmail.com</a><br>
         🐻 <strong>버클리:</strong> Daniel Song (송다니엘) — <a href="mailto:ucberkeley-alumnicup@googlegroups.com">ucberkeley-alumnicup@googlegroups.com</a><br><br>
-        📱 문의 양식 제출은 48시간 이내에 검토됩니다
+        📱 신청서는 48시간 이내에 검토됩니다
       </div>
     </section>
   </div>

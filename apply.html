@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apply - The Alumni Cup</title>
+  <meta name="description" content="Apply to play in the Alumni Cup, or bring your university's alumni association into the competition.">
+  <link rel="icon" type="image/png" href="favicon2.png">
+  <link rel="canonical" href="https://winalumnicup.com/apply">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background: #f5f5f5;
+    }
+
+    nav { background: #bf5700; color: white; padding: 1rem 0; }
+    nav .bar { max-width: 760px; margin: 0 auto; padding: 0 16px; display: flex; justify-content: space-between; align-items: center; }
+    nav a { color: white; text-decoration: none; font-size: 1.3rem; font-weight: bold; }
+    .lang-toggle { background: white; color: #bf5700; border: none; padding: 0.5rem 1rem; border-radius: 5px; cursor: pointer; font-weight: bold; }
+
+    header { background: linear-gradient(rgba(0, 39, 76, 0.92), rgba(191, 87, 0, 0.88)); color: white; text-align: center; padding: 3rem 16px 2.5rem; }
+    header h1 { font-size: 2.2rem; line-height: 1.2; margin-bottom: 0.6rem; }
+    header p { font-size: 1.1rem; max-width: 600px; margin: 0 auto; opacity: 0.95; }
+
+    main { max-width: 760px; margin: -1.5rem auto 3rem; padding: 0 16px; }
+
+    .chooser { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem; }
+    .choice {
+      background: white; border: 2px solid transparent; border-radius: 10px; padding: 1.2rem; text-align: left;
+      cursor: pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.08); font: inherit; color: inherit;
+    }
+    .choice strong { display: block; font-size: 1.1rem; color: #00274c; margin-bottom: 0.25rem; }
+    .choice small { color: #666; font-size: 0.92rem; }
+    .choice[aria-selected="true"] { border-color: #bf5700; }
+    .choice:focus-visible { outline: 3px solid #00274c; outline-offset: 2px; }
+
+    form, .done { background: white; border-radius: 10px; padding: 1.8rem; box-shadow: 0 4px 6px rgba(0,0,0,0.08); }
+    form[hidden], .done[hidden] { display: none; }
+    form h2 { color: #00274c; font-size: 1.4rem; margin-bottom: 0.3rem; }
+    .lede { color: #555; margin-bottom: 1.4rem; }
+
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 0 1rem; }
+    .field { margin-bottom: 1.1rem; }
+    .field[hidden] { display: none; }
+    label, legend { display: block; font-weight: 600; margin-bottom: 0.35rem; color: #222; }
+    .req { color: #bf5700; }
+    .hint { font-weight: normal; color: #777; font-size: 0.88rem; }
+    input[type=text], input[type=email], input[type=tel], input[type=number], select, textarea {
+      width: 100%; padding: 0.7rem 0.8rem; border: 1px solid #ccc; border-radius: 6px; font: inherit; background: white;
+    }
+    textarea { min-height: 110px; resize: vertical; }
+    input:focus, select:focus, textarea:focus { outline: none; border-color: #bf5700; box-shadow: 0 0 0 3px rgba(191, 87, 0, 0.15); }
+    fieldset { border: none; margin-bottom: 1.1rem; }
+    .checks { display: flex; flex-wrap: wrap; gap: 0.6rem 1.4rem; }
+    .checks label { font-weight: normal; display: flex; align-items: center; gap: 0.45rem; cursor: pointer; margin: 0; }
+    .checks input { width: 1.1rem; height: 1.1rem; accent-color: #bf5700; }
+
+    .trap { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+    .error { background: #fdecea; color: #a12622; border-left: 4px solid #d93025; padding: 0.8rem 1rem; border-radius: 6px; margin-bottom: 1rem; }
+    .error[hidden] { display: none; }
+
+    button.submit {
+      background: #bf5700; color: white; border: none; border-radius: 6px; padding: 0.95rem 2.2rem; font: inherit; font-weight: bold;
+      font-size: 1.05rem; cursor: pointer; width: 100%; margin-top: 0.4rem;
+    }
+    button.submit:hover { background: #a04900; }
+    button.submit:disabled { background: #c9a689; cursor: wait; }
+
+    .done { text-align: center; padding: 2.5rem 1.8rem; }
+    .done .big { font-size: 3rem; }
+    .done h2 { color: #00274c; margin: 0.5rem 0; }
+    .done a { color: #bf5700; font-weight: 600; }
+
+    .contacts { margin-top: 2rem; color: #555; font-size: 0.95rem; text-align: center; }
+    .contacts a { color: #bf5700; }
+
+    /* Language switching, same convention as index.html */
+    .lang-ko { display: none !important; }
+    body.korean .lang-en { display: none !important; }
+    body.korean .lang-ko { display: inline !important; }
+    body.korean div.lang-ko, body.korean p.lang-ko, body.korean h1.lang-ko, body.korean h2.lang-ko { display: block !important; }
+
+    @media (max-width: 600px) {
+      header h1 { font-size: 1.7rem; }
+      .chooser, .row { grid-template-columns: 1fr; }
+      form, .done { padding: 1.3rem; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="bar">
+      <a href="index.html">🏆 <span class="lang-en">Alumni Cup</span><span class="lang-ko">알룸나이 컵</span></a>
+      <button class="lang-toggle" type="button" onclick="toggleLanguage()"><span class="lang-en">한국어</span><span class="lang-ko">English</span></button>
+    </div>
+  </nav>
+
+  <header>
+    <h1 class="lang-en">Apply to the Alumni Cup</h1>
+    <h1 class="lang-ko">알룸나이 컵 참가 신청</h1>
+    <p class="lang-en">Play for your school in golf and the 10K, or bring your university's alumni association into the Cup.</p>
+    <p class="lang-ko">모교를 대표해 골프와 10K에 참가하거나, 귀교 동문회의 대회 참가를 신청하세요.</p>
+  </header>
+
+  <main>
+    <div class="chooser" role="tablist" aria-label="Application type">
+      <button class="choice" type="button" role="tab" id="tab-individual" aria-controls="form-individual" aria-selected="true" data-target="individual">
+        <strong><span class="lang-en">🙋 I want to play</span><span class="lang-ko">🙋 선수로 참가</span></strong>
+        <small><span class="lang-en">Individual alumni: golf, 10K or both</span><span class="lang-ko">개인 동문 신청 — 골프, 10K 또는 둘 다</span></small>
+      </button>
+      <button class="choice" type="button" role="tab" id="tab-school" aria-controls="form-school" aria-selected="false" data-target="school">
+        <strong><span class="lang-en">🏫 Bring my school</span><span class="lang-ko">🏫 학교 참가 신청</span></strong>
+        <small><span class="lang-en">For alumni associations that want to join</span><span class="lang-ko">대회 참가를 원하는 동문회</span></small>
+      </button>
+    </div>
+
+    <!-- Individual -->
+    <form id="form-individual" role="tabpanel" aria-labelledby="tab-individual" novalidate>
+      <h2><span class="lang-en">Individual application</span><span class="lang-ko">개인 참가 신청</span></h2>
+      <p class="lede"><span class="lang-en">We'll pass your details to your school's coordinator. If your school isn't in the Cup yet, tell us which one it is and we'll find you a team.</span><span class="lang-ko">작성하신 정보는 해당 학교 운영진에게 전달됩니다. 아직 참가하지 않는 학교라면 학교명을 적어주세요. 함께할 팀을 찾아드리겠습니다.</span></p>
+
+      <div class="error" role="alert" hidden></div>
+
+      <div class="row">
+        <div class="field">
+          <label for="i-name"><span class="lang-en">Name</span><span class="lang-ko">이름</span> <span class="req">*</span></label>
+          <input id="i-name" name="name" type="text" autocomplete="name" maxlength="100" required>
+        </div>
+        <div class="field">
+          <label for="i-email"><span class="lang-en">Email</span><span class="lang-ko">이메일</span> <span class="req">*</span></label>
+          <input id="i-email" name="email" type="email" autocomplete="email" maxlength="254" required>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="field">
+          <label for="i-phone"><span class="lang-en">Phone</span><span class="lang-ko">연락처</span></label>
+          <input id="i-phone" name="phone" type="tel" autocomplete="tel" maxlength="40" placeholder="010-0000-0000">
+        </div>
+        <div class="field">
+          <label for="i-gender"><span class="lang-en">Gender</span><span class="lang-ko">성별</span> <span class="hint"><span class="lang-en">(10K teams need 2+ women)</span><span class="lang-ko">(10K는 학교당 여성 2명 이상)</span></span></label>
+          <select id="i-gender" name="gender">
+            <option value="" data-en="Select…" data-ko="선택…"></option>
+            <option value="f" data-en="Female" data-ko="여성"></option>
+            <option value="m" data-en="Male" data-ko="남성"></option>
+            <option value="undisclosed" data-en="Prefer not to say" data-ko="응답 안 함"></option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="field">
+          <label for="i-school"><span class="lang-en">School</span><span class="lang-ko">학교</span> <span class="req">*</span></label>
+          <select id="i-school" name="school" required>
+            <option value="" data-en="Loading schools…" data-ko="학교 불러오는 중…"></option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="i-detail"><span class="lang-en">Degree &amp; class year</span><span class="lang-ko">전공 / 졸업연도</span></label>
+          <input id="i-detail" name="school_detail" type="text" maxlength="100" data-ph-en="e.g. BBA '12" data-ph-ko="예: 경영학 2012">
+        </div>
+      </div>
+
+      <div class="field" id="i-other-wrap" hidden>
+        <label for="i-other"><span class="lang-en">Which school?</span><span class="lang-ko">학교명</span> <span class="req">*</span></label>
+        <input id="i-other" name="school_other" type="text" maxlength="200" data-ph-en="Full university name" data-ph-ko="대학교 전체 이름">
+      </div>
+
+      <fieldset>
+        <legend><span class="lang-en">Events</span><span class="lang-ko">참가 종목</span> <span class="req">*</span></legend>
+        <div class="checks">
+          <label><input type="checkbox" name="sports" value="golf"> <span class="lang-en">⛳ Golf</span><span class="lang-ko">⛳ 골프</span></label>
+          <label><input type="checkbox" name="sports" value="run"> <span class="lang-en">🏃 10K Run</span><span class="lang-ko">🏃 10K 마라톤</span></label>
+        </div>
+      </fieldset>
+
+      <div class="row">
+        <div class="field" id="i-golf-wrap" hidden>
+          <label for="i-golf"><span class="lang-en">Average golf score</span><span class="lang-ko">평균 타수</span></label>
+          <input id="i-golf" name="golf_avg" type="number" inputmode="numeric" min="50" max="200" placeholder="95">
+        </div>
+        <div class="field" id="i-run-wrap" hidden>
+          <label for="i-run"><span class="lang-en">Expected 10K time</span><span class="lang-ko">예상 10K 기록</span></label>
+          <input id="i-run" name="run_10k" type="text" maxlength="20" placeholder="55:00">
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="i-message"><span class="lang-en">Anything else?</span><span class="lang-ko">기타 문의</span></label>
+        <textarea id="i-message" name="message" maxlength="2000"></textarea>
+      </div>
+
+      <div class="trap" aria-hidden="true"><label>Website <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+
+      <button class="submit" type="submit"><span class="lang-en">Submit application</span><span class="lang-ko">신청하기</span></button>
+    </form>
+
+    <!-- School -->
+    <form id="form-school" role="tabpanel" aria-labelledby="tab-school" novalidate hidden>
+      <h2><span class="lang-en">School application</span><span class="lang-ko">학교 참가 신청</span></h2>
+      <p class="lede"><span class="lang-en">Each school fields golfers and 10K runners from its alumni in Korea. Tell us about your association and we'll be in touch.</span><span class="lang-ko">각 학교는 국내 동문으로 골프와 10K 팀을 구성합니다. 동문회 정보를 남겨주시면 연락드리겠습니다.</span></p>
+
+      <div class="error" role="alert" hidden></div>
+
+      <div class="row">
+        <div class="field">
+          <label for="s-school"><span class="lang-en">University</span><span class="lang-ko">대학교</span> <span class="req">*</span></label>
+          <input id="s-school" name="school_name" type="text" maxlength="200" required>
+        </div>
+        <div class="field">
+          <label for="s-assoc"><span class="lang-en">Alumni association</span><span class="lang-ko">동문회 이름</span></label>
+          <input id="s-assoc" name="association_name" type="text" maxlength="200" data-ph-en="e.g. Texas Exes Korea" data-ph-ko="예: 한국 텍사스 동문회">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="field">
+          <label for="s-name"><span class="lang-en">Your name</span><span class="lang-ko">담당자 이름</span> <span class="req">*</span></label>
+          <input id="s-name" name="contact_name" type="text" autocomplete="name" maxlength="100" required>
+        </div>
+        <div class="field">
+          <label for="s-role"><span class="lang-en">Role in the association</span><span class="lang-ko">동문회 직책</span></label>
+          <input id="s-role" name="contact_role" type="text" maxlength="100">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="field">
+          <label for="s-email"><span class="lang-en">Email</span><span class="lang-ko">이메일</span> <span class="req">*</span></label>
+          <input id="s-email" name="email" type="email" autocomplete="email" maxlength="254" required>
+        </div>
+        <div class="field">
+          <label for="s-phone"><span class="lang-en">Phone</span><span class="lang-ko">연락처</span></label>
+          <input id="s-phone" name="phone" type="tel" autocomplete="tel" maxlength="40" placeholder="010-0000-0000">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="field">
+          <label for="s-members"><span class="lang-en">Active alumni in Korea</span><span class="lang-ko">국내 활동 동문 수</span> <span class="hint"><span class="lang-en">(roughly)</span><span class="lang-ko">(대략)</span></span></label>
+          <input id="s-members" name="member_count" type="number" inputmode="numeric" min="0" max="100000">
+        </div>
+        <fieldset>
+          <legend><span class="lang-en">Events</span><span class="lang-ko">참가 종목</span> <span class="req">*</span></legend>
+          <div class="checks">
+            <label><input type="checkbox" name="sports" value="golf" checked> <span class="lang-en">⛳ Golf</span><span class="lang-ko">⛳ 골프</span></label>
+            <label><input type="checkbox" name="sports" value="run" checked> <span class="lang-en">🏃 10K Run</span><span class="lang-ko">🏃 10K 마라톤</span></label>
+          </div>
+        </fieldset>
+      </div>
+
+      <div class="field">
+        <label for="s-message"><span class="lang-en">Message</span><span class="lang-ko">메시지</span></label>
+        <textarea id="s-message" name="message" maxlength="2000"></textarea>
+      </div>
+
+      <div class="trap" aria-hidden="true"><label>Website <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+
+      <button class="submit" type="submit"><span class="lang-en">Submit application</span><span class="lang-ko">신청하기</span></button>
+    </form>
+
+    <div class="done" id="done" hidden tabindex="-1">
+      <div class="big">🎉</div>
+      <h2><span class="lang-en">Application received</span><span class="lang-ko">신청이 접수되었습니다</span></h2>
+      <p><span class="lang-en">Thank you! A coordinator will contact you within a few days.</span><span class="lang-ko">감사합니다! 며칠 내로 운영진이 연락드리겠습니다.</span></p>
+      <p style="margin-top: 1.2rem"><a href="index.html"><span class="lang-en">← Back to the Alumni Cup</span><span class="lang-ko">← 메인으로 돌아가기</span></a></p>
+    </div>
+
+    <p class="contacts">
+      <span class="lang-en">Questions? Email</span><span class="lang-ko">문의:</span>
+      <a href="mailto:letmegeton@gmail.com">letmegeton@gmail.com</a>
+    </p>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3/dist/umd/supabase.js"></script>
+  <script src="js/supabase-config.js"></script>
+  <script>
+    var db = window.supabase.createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
+    var schools = [];
+
+    function isKo() { return document.body.classList.contains('korean'); }
+
+    // Text that CSS classes cannot switch: <option> labels and placeholders.
+    function localize() {
+      var ko = isKo();
+      document.querySelectorAll('option[data-en]').forEach(function (o) { o.textContent = ko ? o.dataset.ko : o.dataset.en; });
+      document.querySelectorAll('[data-ph-en]').forEach(function (el) { el.placeholder = ko ? el.dataset.phKo : el.dataset.phEn; });
+      document.title = ko ? '참가 신청 - 알룸나이 컵' : 'Apply - The Alumni Cup';
+    }
+
+    function toggleLanguage() {
+      document.body.classList.toggle('korean');
+      document.documentElement.lang = isKo() ? 'ko' : 'en';
+      try { localStorage.setItem('language', isKo() ? 'ko' : 'en'); } catch (e) {}
+      localize();
+    }
+
+    try {
+      if (localStorage.getItem('language') === 'ko') { document.body.classList.add('korean'); document.documentElement.lang = 'ko'; }
+    } catch (e) {}
+    localize();
+
+    // ---------------------------------------------------------------- tabs
+    function show(which) {
+      document.querySelectorAll('.choice').forEach(function (b) {
+        var on = b.dataset.target === which;
+        b.setAttribute('aria-selected', on);
+        document.getElementById('form-' + b.dataset.target).hidden = !on;
+      });
+      document.getElementById('done').hidden = true;
+    }
+    document.querySelectorAll('.choice').forEach(function (b) {
+      b.addEventListener('click', function () { show(b.dataset.target); history.replaceState(null, '', '#' + b.dataset.target); });
+    });
+    if (location.hash === '#school') show('school');
+
+    // -------------------------------------------------------------- schools
+    var schoolSelect = document.getElementById('i-school');
+    db.from('schools').select('id, code, emoji, name_en, name_ko').eq('active', true).order('sort_order').then(function (res) {
+      schools = res.data || [];
+      schoolSelect.innerHTML = '';
+      var opts = [['', 'Select your school…', '학교를 선택하세요…']]
+        .concat(schools.map(function (s) { return [s.id, s.emoji + ' ' + s.name_en, s.emoji + ' ' + s.name_ko]; }))
+        .concat([['other', 'Other — my school isn\'t listed', '기타 — 목록에 없는 학교']]);
+      opts.forEach(function (o) {
+        var el = document.createElement('option');
+        el.value = o[0]; el.dataset.en = o[1]; el.dataset.ko = o[2];
+        schoolSelect.appendChild(el);
+      });
+      localize();
+    });
+
+    // ------------------------------------------------- conditional fields
+    var indiv = document.getElementById('form-individual');
+    function sync() {
+      var picked = Array.from(indiv.querySelectorAll('input[name=sports]:checked')).map(function (c) { return c.value; });
+      document.getElementById('i-golf-wrap').hidden = picked.indexOf('golf') < 0;
+      document.getElementById('i-run-wrap').hidden = picked.indexOf('run') < 0;
+      document.getElementById('i-other-wrap').hidden = schoolSelect.value !== 'other';
+    }
+    indiv.addEventListener('change', sync);
+    sync();
+
+    // -------------------------------------------------------------- submit
+    function val(form, name) {
+      var el = form.elements[name];
+      var v = el && el.value != null ? String(el.value).trim() : '';
+      return v === '' ? null : v;
+    }
+    function sports(form) {
+      return Array.from(form.querySelectorAll('input[name=sports]:checked')).map(function (c) { return c.value; });
+    }
+    function fail(form, en, ko) {
+      var box = form.querySelector('.error');
+      box.textContent = isKo() ? ko : en;
+      box.hidden = false;
+      box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+    var EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    function submit(form, table, build) {
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        form.querySelector('.error').hidden = true;
+        var row = build(form);
+        if (!row) return;
+
+        var btn = form.querySelector('button.submit');
+        var finish = function () {
+          form.hidden = true;
+          var done = document.getElementById('done');
+          done.hidden = false;
+          done.focus();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+        // Bots fill every field; people never see this one.
+        if (val(form, 'website')) { finish(); return; }
+
+        btn.disabled = true;
+        row.lang = isKo() ? 'ko' : 'en';
+        // No .select(): the public can insert but not read back (see 0003_applications.sql).
+        db.from(table).insert(row).then(function (res) {
+          btn.disabled = false;
+          if (res.error) {
+            console.error(res.error);
+            fail(form, 'Something went wrong sending your application. Please try again, or email letmegeton@gmail.com.',
+                       '신청서 전송 중 오류가 발생했습니다. 다시 시도하시거나 letmegeton@gmail.com 으로 연락주세요.');
+            return;
+          }
+          form.reset();
+          sync();
+          finish();
+        });
+      });
+    }
+
+    submit(indiv, 'individual_applications', function (f) {
+      var row = {
+        name: val(f, 'name'), email: val(f, 'email'), phone: val(f, 'phone'),
+        gender: val(f, 'gender'), school_detail: val(f, 'school_detail'),
+        sports: sports(f), message: val(f, 'message'),
+        school_id: null, school_other: null, golf_avg: null, run_10k: null
+      };
+      var school = f.elements.school.value;
+      if (school === 'other') row.school_other = val(f, 'school_other');
+      else row.school_id = school || null;
+
+      if (!row.name) return fail(f, 'Please enter your name.', '이름을 입력해주세요.');
+      if (!row.email || !EMAIL.test(row.email)) return fail(f, 'Please enter a valid email address.', '올바른 이메일 주소를 입력해주세요.');
+      if (!row.school_id && !row.school_other) return fail(f, 'Please choose your school, or type it in under “Other”.', '학교를 선택하시거나 “기타”에서 학교명을 입력해주세요.');
+      if (!row.sports.length) return fail(f, 'Please choose at least one event.', '참가 종목을 하나 이상 선택해주세요.');
+
+      if (row.sports.indexOf('golf') >= 0 && val(f, 'golf_avg')) {
+        var g = parseInt(val(f, 'golf_avg'), 10);
+        if (!(g >= 50 && g <= 200)) return fail(f, 'Average golf score should be between 50 and 200.', '평균 타수는 50~200 사이로 입력해주세요.');
+        row.golf_avg = g;
+      }
+      if (row.sports.indexOf('run') >= 0) row.run_10k = val(f, 'run_10k');
+      return row;
+    });
+
+    submit(document.getElementById('form-school'), 'school_applications', function (f) {
+      var row = {
+        school_name: val(f, 'school_name'), association_name: val(f, 'association_name'),
+        contact_name: val(f, 'contact_name'), contact_role: val(f, 'contact_role'),
+        email: val(f, 'email'), phone: val(f, 'phone'),
+        member_count: val(f, 'member_count') ? parseInt(val(f, 'member_count'), 10) : null,
+        sports: sports(f), message: val(f, 'message')
+      };
+      if (!row.school_name) return fail(f, 'Please enter the university name.', '대학교 이름을 입력해주세요.');
+      if (!row.contact_name) return fail(f, 'Please enter your name.', '담당자 이름을 입력해주세요.');
+      if (!row.email || !EMAIL.test(row.email)) return fail(f, 'Please enter a valid email address.', '올바른 이메일 주소를 입력해주세요.');
+      if (!row.sports.length) return fail(f, 'Please choose at least one event.', '참가 종목을 하나 이상 선택해주세요.');
+      if (row.member_count !== null && !(row.member_count >= 0 && row.member_count <= 100000)) return fail(f, 'Please enter a number of alumni.', '동문 수를 숫자로 입력해주세요.');
+      return row;
+    });
+  </script>
+</body>
+</html>
