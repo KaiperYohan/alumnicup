@@ -189,7 +189,7 @@ body:not(.korean) .champion .lang-en, body.korean .champion .lang-ko { display: 
   /* The 2026 group photo under a navy-to-orange wash, dark enough for white text */
   background:
     linear-gradient(180deg, rgba(0, 24, 48, 0.82) 0%, rgba(0, 39, 76, 0.62) 45%, rgba(150, 64, 0, 0.82) 100%),
-    url('pic/2026/golf-group.jpg') center 35% / cover no-repeat;
+    url('../pic/2026/golf-group.jpg') /* relative to css/ */ center 35% / cover no-repeat;
   background-color: #00274c;
   color: white;
   text-align: center;
