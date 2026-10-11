@@ -839,7 +839,9 @@ body.korean h4.lang-ko, body.korean h5.lang-ko,
 body.korean p.lang-ko, body.korean div.lang-ko { display: block !important; }
 
 /* CTA buttons need inline-block for proper sizing */
-a.cta-button.lang-en { display: inline-block !important; }
+/* Scoped to English mode: unscoped, this (same specificity as
+   body.korean .lang-en, but later) kept English buttons visible in Korean. */
+body:not(.korean) a.cta-button.lang-en { display: inline-block !important; }
 body.korean a.cta-button.lang-ko { display: inline-block !important; }
 
 /* Mobile */
