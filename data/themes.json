@@ -1,0 +1,27 @@
+{
+  "_comment": "Site color theme for each school. The school that holds the Cup (the most recent year whose events are all published) themes the whole site until the next champion is decided. Colors are from each school's official brand guide (checked 2026-10-11): brand.utexas.edu, brand.umich.edu, brand.wisc.edu/web/colors, brand.berkeley.edu/visual-identity/colors. primary = nav, headings, links; ink = dark text, footer, announcement bar; tint = light backgrounds; accent = highlights; cta = the big buttons.",
+  "texas": {
+    "name": "Burnt Orange & White",
+    "primary": "#BF5700", "primary_dark": "#A04900", "ink": "#333F48",
+    "tint": "#FFF4EB", "accent": "#F8971F",
+    "cta_bg": "#BF5700", "cta_text": "#FFFFFF", "cta_hover": "#A04900"
+  },
+  "michigan": {
+    "name": "Maize & Blue",
+    "primary": "#00274C", "primary_dark": "#001A33", "ink": "#00274C",
+    "tint": "#FFF8DB", "accent": "#FFCB05",
+    "cta_bg": "#FFCB05", "cta_text": "#00274C", "cta_hover": "#E6B600"
+  },
+  "wisconsin": {
+    "name": "Badger Red & White",
+    "primary": "#C5050C", "primary_dark": "#9B0000", "ink": "#121212",
+    "tint": "#FDEDEE", "accent": "#C5050C",
+    "cta_bg": "#C5050C", "cta_text": "#FFFFFF", "cta_hover": "#9B0000"
+  },
+  "berkeley": {
+    "name": "Berkeley Blue & California Gold",
+    "primary": "#002676", "primary_dark": "#010133", "ink": "#010133",
+    "tint": "#FFF6DE", "accent": "#FDB515",
+    "cta_bg": "#FDB515", "cta_text": "#002676", "cta_hover": "#FC9313"
+  }
+}

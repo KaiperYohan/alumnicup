@@ -64,6 +64,21 @@ open `index.html`. `npm run check:results` reports without writing.
 Two lines on the page are still written by hand and need updating after each
 event: the announcement bar and the golf/10K event-card status.
 
+## Champion theme
+
+The school that holds the Cup themes the whole site for a year: nav, headings,
+buttons, hero wash, footer. The holder is the champion of the most recent year
+whose events are all published, so the theme switches on the rebuild that
+follows publishing the final event. The "Defending Champion" badge and the
+"Current holder" callout switch with it.
+
+- Palettes: `data/themes.json` (from each school's official brand guide).
+  A new school needs an entry there before it can win.
+- Generated: `css/theme.css`, which overrides the defaults at the top of
+  `css/site.css`.
+- Preview another school locally: `node scripts/build-results.js --theme=berkeley`
+  (then rebuild without the flag before committing).
+
 ## How scoring works
 
 `js/scoring.js` is the single source of truth, shared by the page builder,
