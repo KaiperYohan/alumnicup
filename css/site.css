@@ -293,8 +293,8 @@ h3 {
 /* Schools Section */
 .schools-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 1.2rem;
   margin-top: 2rem;
 }
 
@@ -312,6 +312,7 @@ h3 {
 /* --t: text color when the school color is too light to read (Michigan maize) */
 .school-card .motto { color: var(--t, var(--c)); font-weight: bold; font-style: italic; margin-bottom: 0.2rem; }
 .school-card .record { font-size: 0.92rem; color: #555; }
+.school-card .badge { white-space: nowrap; font-size: 0.78rem; }
 
 .school-card h4 {
   font-size: 1.3rem;
