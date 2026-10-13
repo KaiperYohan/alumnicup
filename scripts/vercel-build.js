@@ -19,7 +19,7 @@ const ROOT = path.join(__dirname, '..');
 const OUT = path.join(ROOT, 'dist');
 
 const PUBLIC = [
-  'index.html', 'apply.html', 'admin.html',
+  'index.html', 'about.html', 'apply.html', 'admin.html',
   'favicon2.png', 'alumni-cup.jpg', 'robots.txt', 'sitemap.xml',
   'css', 'js', 'pic', 'results',
 ];

@@ -1270,3 +1270,100 @@ body.korean a.cta-button.lang-ko { display: inline-block !important; }
   .next-school { width: 44%; }
   .next-ring { width: 92px; height: 92px; font-size: 2.2rem; }
 }
+
+/* ======================================================= /about (The Cup) */
+/* Colors use var(--x, fallback) so this works with or without the
+   champion theme variables. */
+.about-more { margin: 0.2rem 0 1rem; }
+.about-more a { color: var(--primary, #bf5700); font-weight: bold; text-decoration: none; }
+.about-more a:hover { text-decoration: underline; }
+
+.about-hero {
+  background: radial-gradient(circle at 75% 45%, #3a4a5c 0%, #1b222b 55%, #12171d 100%);
+  color: white;
+  overflow: hidden;
+}
+.about-hero-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 3.5rem 16px 0;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 3rem;
+  align-items: center;
+  padding-bottom: 3.5rem;
+}
+.about-hero-text { padding-bottom: 0; }
+.about-hero .eyebrow { letter-spacing: 0.14em; text-transform: uppercase; font-size: 0.8rem; opacity: 0.75; margin-bottom: 0.6rem; }
+.about-hero h1 { font-size: 3.4rem; line-height: 1.1; margin-bottom: 0.6rem; }
+.about-tagline { font-size: 1.4rem; font-weight: 600; color: #8fd3ff; margin-bottom: 1rem; }
+.about-hero-text p:not(.eyebrow):not(.about-tagline) { font-size: 1.08rem; opacity: 0.9; max-width: 34rem; }
+/* The studio photo keeps its own backdrop, so frame it rather than blend it */
+.about-hero-img { width: 100%; max-width: 380px; height: auto; justify-self: center; display: block; border-radius: 18px; box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.08); }
+.about-jump { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.4rem; }
+.about-jump a { color: white; text-decoration: none; font-weight: 600; font-size: 0.92rem; border: 1px solid rgba(255, 255, 255, 0.35); border-radius: 999px; padding: 0.35rem 0.95rem; }
+.about-jump a:hover { background: rgba(255, 255, 255, 0.12); }
+
+.about-main { padding-top: 3rem; }
+.about-block { margin-bottom: 4.5rem; scroll-margin-top: 5rem; }
+.about-block > h2 { text-align: left; color: var(--ink, #00274c); font-size: 2rem; margin-bottom: 1rem; }
+.section-lede { color: #555; max-width: 46rem; margin-bottom: 1.4rem; font-size: 1.05rem; }
+.about-two { display: grid; grid-template-columns: 1fr 1fr; gap: 2.2rem; align-items: start; }
+.about-two p { font-size: 1.08rem; color: #444; margin-bottom: 1rem; }
+.cup-facts { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.6rem; margin-top: 1.4rem; }
+.cup-facts div { background: var(--tint, #fff4eb); border-radius: 12px; padding: 0.9rem 0.6rem; text-align: center; }
+.cup-facts dt { font-size: 0.78rem; color: #666; text-transform: uppercase; letter-spacing: 0.05em; }
+.cup-facts dd { margin: 0; font-size: 2rem; font-weight: 800; color: var(--primary, #bf5700); line-height: 1.2; }
+.cup-gallery { grid-template-columns: repeat(3, 1fr) !important; gap: 0.6rem; }
+.cup-gallery img { height: 210px; background: #eef0f2; }
+.cup-gallery img:first-child { grid-column: span 2; grid-row: span 2; height: 100%; min-height: 430px; }
+.photo-credit { font-size: 0.85rem; color: #888; margin-top: 0.6rem; text-align: right; }
+
+/* The 28 plates: four sides of seven, like the trophy itself */
+.plates { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+.plate-side { background: linear-gradient(180deg, #e6f5fd, #d3ecfa); border-radius: 14px; padding: 0.8rem; display: flex; flex-direction: column; gap: 0.45rem; }
+.plate-side-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: #4a7896; font-weight: bold; text-align: center; margin-bottom: 0.15rem; }
+.plate { display: flex; justify-content: space-between; align-items: center; gap: 0.4rem; background: rgba(255, 255, 255, 0.55); border: 1px solid rgba(74, 120, 150, 0.18); border-radius: 8px; padding: 0.5rem 0.7rem; min-height: 2.6rem; font-size: 0.88rem; color: #8aa3b5; }
+.plate-year { font-variant-numeric: tabular-nums; font-weight: 600; }
+.plate-name { font-weight: 800; color: #00274c; text-align: right; }
+.plate.filled { background: white; border: 1px solid var(--c); box-shadow: inset 4px 0 var(--c); color: #444; }
+.plate.next { background: var(--tint, #fff4eb); border: 1px dashed var(--primary, #bf5700); color: var(--primary-dark, #a04900); }
+.plate.next .plate-name { color: var(--primary-dark, #a04900); font-weight: 700; }
+
+/* Artist */
+.artist { display: grid; grid-template-columns: 1.4fr 1fr; gap: 2.4rem; align-items: start; }
+.artist p { font-size: 1.05rem; color: #444; margin-bottom: 1rem; }
+.artist-links { display: flex; flex-wrap: wrap; gap: 0.8rem 1.4rem; }
+.artist-links a { color: var(--primary, #bf5700); font-weight: bold; text-decoration: none; }
+.artist-links a:hover { text-decoration: underline; }
+.artist-highlights { list-style: none; padding: 0; margin: 0; border-left: 3px solid var(--primary, #bf5700); }
+.artist-highlights li { padding: 0.55rem 0 0.55rem 1.1rem; display: flex; flex-direction: column; }
+.artist-highlights b { color: var(--ink, #00274c); font-size: 0.95rem; }
+.artist-highlights li > span { color: #555; font-size: 0.95rem; }
+
+/* History */
+.timeline { list-style: none; padding: 0; margin: 0 0 2rem; }
+.timeline li { display: grid; grid-template-columns: 5.5rem 1fr; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid #eee; }
+.tl-year { font-size: 1.6rem; font-weight: 800; color: var(--primary, #bf5700); line-height: 1.2; }
+.timeline p { font-size: 1.05rem; color: #444; }
+.about-cta { text-align: center; background: var(--tint, #fff4eb); border-radius: 16px; padding: 2rem 1rem; }
+.about-cta p { font-size: 1.25rem; font-weight: 700; color: var(--ink, #00274c); margin-bottom: 0.6rem; }
+
+@media (max-width: 768px) {
+  .about-hero-inner { grid-template-columns: 1fr; padding-top: 2.2rem; padding-bottom: 2.5rem; text-align: center; gap: 2rem; }
+  .about-hero-text { padding-bottom: 0; }
+  .about-hero-text p:not(.eyebrow):not(.about-tagline) { margin: 0 auto; }
+  .about-jump { justify-content: center; }
+  .about-hero h1 { font-size: 2.4rem; }
+  .about-hero-img { max-width: 260px; }
+  .about-two, .artist { grid-template-columns: 1fr; }
+  .cup-facts { grid-template-columns: repeat(2, 1fr); }
+  .cup-gallery { grid-template-columns: repeat(2, 1fr) !important; }
+  .cup-gallery img { height: 170px; }
+  .cup-gallery img:first-child { grid-column: span 2; grid-row: auto; min-height: 0; height: 300px; }
+  .plates { grid-template-columns: repeat(2, 1fr); gap: 0.7rem; }
+  .plate { font-size: 0.8rem; padding: 0.4rem 0.5rem; }
+  .timeline li { grid-template-columns: 4rem 1fr; }
+  .tl-year { font-size: 1.3rem; }
+  .about-block > h2 { font-size: 1.6rem; }
+}
