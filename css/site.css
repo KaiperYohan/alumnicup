@@ -1368,36 +1368,30 @@ body.korean a.cta-button.lang-ko { display: inline-block !important; }
   .about-block > h2 { font-size: 1.6rem; }
 }
 
-/* Founders (/about) */
+/* Founders (/about): compact cards, two per row */
+.founders { display: grid; grid-template-columns: repeat(auto-fill, minmax(420px, 1fr)); gap: 1.2rem; }
 .founder {
   --c: #00274c;
   display: grid;
-  grid-template-columns: 260px 1fr;
-  gap: 2rem;
+  grid-template-columns: 110px 1fr;
+  gap: 1.2rem;
+  align-items: start;
   background: white;
-  border-radius: 18px;
-  border-top: 6px solid var(--c);
-  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.07);
-  padding: 1.8rem;
-  margin-bottom: 1.5rem;
+  border-radius: 14px;
+  border-top: 4px solid var(--c);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+  padding: 1.2rem;
 }
-.founder-photo { width: 100%; height: auto; border-radius: 14px; background: #f2f4f7; align-self: start; }
-.founder-role { font-size: 0.8rem; font-weight: bold; text-transform: uppercase; letter-spacing: 0.08em; color: var(--c); }
-.founder h3 { font-size: 1.9rem; color: var(--ink, #00274c); text-align: left; margin: 0.15rem 0 0.2rem; }
-.founder-title { color: #555; font-weight: 600; margin-bottom: 1.1rem; }
-.founder-body > p:not(.founder-role):not(.founder-title) { font-size: 1.04rem; color: #444; margin-bottom: 0.9rem; }
-.founder-feats { list-style: none; padding: 0; margin: 0 0 1.2rem; display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.6rem; }
-.founder-feats li { background: var(--tint, #fff4eb); border-radius: 12px; padding: 0.8rem 0.9rem; display: flex; flex-direction: column; gap: 0.2rem; }
-.founder-feats b { font-size: 1.35rem; color: var(--c); font-variant-numeric: tabular-nums; line-height: 1.2; }
-.founder-feats li > span { font-size: 0.88rem; color: #444; line-height: 1.35; }
-.founder-cv { margin: 0.4rem 0 0; border-top: 1px solid #eee; padding-top: 0.8rem; display: grid; gap: 0.5rem; }
-.founder-cv div { display: grid; grid-template-columns: 6rem 1fr; gap: 0.6rem; }
-.founder-cv dt { font-size: 0.78rem; font-weight: bold; text-transform: uppercase; letter-spacing: 0.06em; color: #888; padding-top: 0.15rem; }
-.founder-cv dd { margin: 0; font-size: 0.95rem; color: #444; }
+.founder-photo { width: 110px; height: 110px; object-fit: cover; object-position: center 12%; border-radius: 50%; background: #f2f4f7; }
+.founder-role { font-size: 0.75rem; font-weight: bold; text-transform: uppercase; letter-spacing: 0.08em; color: var(--c); }
+.founder h3 { font-size: 1.35rem; color: var(--ink, #00274c); text-align: left; margin: 0.1rem 0; }
+.founder-title { color: #555; font-size: 0.9rem; font-weight: 600; margin-bottom: 0.5rem; }
+.founder-bio { font-size: 0.92rem; color: #444; margin-bottom: 0.6rem; }
+.founder-feats { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.25rem; }
+.founder-feats li { font-size: 0.88rem; color: #333; padding-left: 1rem; position: relative; }
+.founder-feats li::before { content: ""; position: absolute; left: 0; top: 0.55em; width: 6px; height: 6px; border-radius: 50%; background: var(--c); }
 @media (max-width: 768px) {
-  .founder { grid-template-columns: 1fr; padding: 1.2rem; gap: 1.2rem; }
-  .founder-photo { max-width: 220px; justify-self: center; }
-  .founder-feats { grid-template-columns: 1fr; }
-  .founder-cv div { grid-template-columns: 1fr; gap: 0.1rem; }
-  .founder h3 { font-size: 1.6rem; }
+  .founders { grid-template-columns: 1fr; }
+  .founder { grid-template-columns: 80px 1fr; gap: 0.9rem; padding: 1rem; }
+  .founder-photo { width: 80px; height: 80px; }
 }
