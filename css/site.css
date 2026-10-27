@@ -849,6 +849,7 @@ body.korean a.cta-button.lang-ko { display: inline-block !important; }
 @media (max-width: 768px) {
   nav .container {
     flex-wrap: wrap;
+    row-gap: 0; /* the collapsed menu wraps to its own row; don't pad under the logo */
   }
 
   .hamburger {
@@ -870,13 +871,13 @@ body.korean a.cta-button.lang-ko { display: inline-block !important; }
     overflow: hidden;
     transition: max-height 0.3s ease;
     background: #a04900;
-    margin-top: 0.5rem;
     border-radius: 5px;
     flex: none;
   }
 
   nav ul.active {
     max-height: 500px;
+    margin-top: 0.75rem;
   }
 
   nav ul li {
