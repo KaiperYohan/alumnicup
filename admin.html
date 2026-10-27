@@ -26,6 +26,7 @@
     button.danger { background: white; color: #b3261e; border: 1px solid #b3261e; }
     button.x { background: none; color: #999; padding: 0.2rem 0.5rem; font-size: 1.1rem; }
     button.x:hover { color: #b3261e; }
+    button.copy { display: block; margin-top: 0.35rem; padding: 0.2rem 0.55rem; font-size: 0.78rem; white-space: nowrap; }
     button:disabled { opacity: 0.55; cursor: not-allowed; }
     .card { background: white; border-radius: 10px; padding: 1.4rem; box-shadow: 0 2px 5px rgba(0,0,0,0.07); }
     .login { max-width: 420px; margin: 4rem auto; }
@@ -369,7 +370,8 @@
         if (a.run_10k) events += '<small>10K ' + esc(a.run_10k) + '</small>';
         return '<tr data-id="' + a.id + '"' + (a.status === 'new' ? ' class="new"' : '') + '>' +
           '<td>' + when(a.created_at) + '</td>' +
-          '<td><strong>' + esc(a.name) + '</strong>' + (a.school_detail ? '<small>' + esc(a.school_detail) + '</small>' : '') + '</td>' +
+          '<td><strong>' + esc(a.name) + '</strong>' + (a.school_detail ? '<small>' + esc(a.school_detail) + '</small>' : '') +
+            '<button type="button" class="ghost copy" data-copy title="Copy a summary to send to the school coordinator">Copy summary</button></td>' +
           '<td><a href="mailto:' + esc(a.email) + '">' + esc(a.email) + '</a>' + (a.phone ? '<small>' + esc(a.phone) + '</small>' : '') + '</td>' +
           '<td>' + applied + '</td>' +
           '<td>' + events + '</td>' +
@@ -397,6 +399,42 @@
         renderIndividuals();
         flash('rows-individuals', id, field);
       });
+    });
+    // A plain-text card for pasting into KakaoTalk/email to whoever runs that school's team.
+    function summarize(a) {
+      var s = school(a.school_id), lines = ['[Alumni Cup 개인 참가 신청]'];
+      lines.push('이름: ' + a.name + (a.school_detail ? ' (' + a.school_detail + ')' : ''));
+      if (s) lines.push('학교: ' + s.emoji + ' ' + (s.short_ko || s.short_en) + (a.school_other ? ' (신청서 기재: ' + a.school_other + ')' : ''));
+      else lines.push('학교: ' + (a.school_other || '(미지정)') + ' — 미참가 학교');
+      lines.push('종목: ' + a.sports.map(function (sp) {
+        if (sp === 'golf') return '골프' + (a.golf_avg ? ' (평균 ' + a.golf_avg + '타)' : '');
+        if (sp === 'run') return '10K' + (a.run_10k ? ' (예상 ' + a.run_10k + ')' : '');
+        return sp;
+      }).join(', '));
+      var g = { f: '여성', m: '남성' }[a.gender];
+      if (g) lines.push('성별: ' + g);
+      lines.push('연락처: ' + (a.phone || '(없음)'));
+      lines.push('이메일: ' + a.email);
+      if (a.message) lines.push('문의: ' + a.message);
+      lines.push('신청일: ' + new Date(a.created_at).toLocaleDateString('en-CA'));
+      return lines.join('\n');
+    }
+    function copyText(text) {
+      if (navigator.clipboard && window.isSecureContext) return navigator.clipboard.writeText(text);
+      var t = document.createElement('textarea');
+      t.value = text; t.style.position = 'fixed'; t.style.opacity = '0';
+      document.body.appendChild(t); t.select();
+      var ok = document.execCommand('copy'); t.remove();
+      return ok ? Promise.resolve() : Promise.reject(new Error('copy failed'));
+    }
+    $('rows-individuals').addEventListener('click', function (e) {
+      var b = e.target.closest('[data-copy]'); if (!b) return;
+      var id = b.closest('tr').dataset.id, a = individuals.find(function (x) { return x.id === id; });
+      var text = summarize(a);
+      copyText(text).then(function () {
+        b.textContent = 'Copied ✓';
+        setTimeout(function () { b.textContent = 'Copy summary'; }, 1500);
+      }, function () { window.prompt('Copy this summary:', text); });
     });
     ['f-school', 'f-sport', 'f-istatus'].forEach(function (id) { $(id).addEventListener('change', renderIndividuals); });
 

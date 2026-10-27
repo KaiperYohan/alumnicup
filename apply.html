@@ -140,8 +140,8 @@
 
       <div class="row">
         <div class="field">
-          <label for="i-phone"><span class="lang-en">Phone</span><span class="lang-ko">연락처</span></label>
-          <input id="i-phone" name="phone" type="tel" autocomplete="tel" maxlength="40" placeholder="010-0000-0000">
+          <label for="i-phone"><span class="lang-en">Phone</span><span class="lang-ko">연락처</span> <span class="req">*</span></label>
+          <input id="i-phone" name="phone" type="tel" autocomplete="tel" maxlength="40" required placeholder="010-0000-0000">
         </div>
         <div class="field">
           <label for="i-gender"><span class="lang-en">Gender</span><span class="lang-ko">성별</span> <span class="hint"><span class="lang-en">(10K teams need 2+ women)</span><span class="lang-ko">(10K는 학교당 여성 2명 이상)</span></span></label>
@@ -236,8 +236,8 @@
           <input id="s-email" name="email" type="email" autocomplete="email" maxlength="254" required>
         </div>
         <div class="field">
-          <label for="s-phone"><span class="lang-en">Phone</span><span class="lang-ko">연락처</span></label>
-          <input id="s-phone" name="phone" type="tel" autocomplete="tel" maxlength="40" placeholder="010-0000-0000">
+          <label for="s-phone"><span class="lang-en">Phone</span><span class="lang-ko">연락처</span> <span class="req">*</span></label>
+          <input id="s-phone" name="phone" type="tel" autocomplete="tel" maxlength="40" required placeholder="010-0000-0000">
         </div>
       </div>
 
@@ -363,6 +363,8 @@
       box.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
     var EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    // Loose on format (010-1234-5678, +82 10 …, overseas numbers); just needs enough digits to dial.
+    function phoneOk(p) { return (p.match(/\d/g) || []).length >= 8; }
 
     function submit(form, table, build) {
       form.addEventListener('submit', function (e) {
@@ -413,6 +415,7 @@
 
       if (!row.name) return fail(f, 'Please enter your name.', '이름을 입력해주세요.');
       if (!row.email || !EMAIL.test(row.email)) return fail(f, 'Please enter a valid email address.', '올바른 이메일 주소를 입력해주세요.');
+      if (!row.phone || !phoneOk(row.phone)) return fail(f, 'Please enter your phone number.', '연락처를 입력해주세요.');
       if (!row.school_id && !row.school_other) return fail(f, 'Please choose your school, or type it in under “Other”.', '학교를 선택하시거나 “기타”에서 학교명을 입력해주세요.');
       if (!row.sports.length) return fail(f, 'Please choose at least one event.', '참가 종목을 하나 이상 선택해주세요.');
 
@@ -436,6 +439,7 @@
       if (!row.school_name) return fail(f, 'Please enter the university name.', '대학교 이름을 입력해주세요.');
       if (!row.contact_name) return fail(f, 'Please enter your name.', '담당자 이름을 입력해주세요.');
       if (!row.email || !EMAIL.test(row.email)) return fail(f, 'Please enter a valid email address.', '올바른 이메일 주소를 입력해주세요.');
+      if (!row.phone || !phoneOk(row.phone)) return fail(f, 'Please enter your phone number.', '연락처를 입력해주세요.');
       if (!row.sports.length) return fail(f, 'Please choose at least one event.', '참가 종목을 하나 이상 선택해주세요.');
       if (row.member_count !== null && !(row.member_count >= 0 && row.member_count <= 100000)) return fail(f, 'Please enter a number of alumni.', '동문 수를 숫자로 입력해주세요.');
       return row;
