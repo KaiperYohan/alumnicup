@@ -89,6 +89,9 @@ async function loadFromSupabase(data) {
     e.status = published ? 'completed' : 'pending';
     e.competitive = published ? res.competitive : [];
     e.recreational = published ? res.recreational : [];
+    // Name badges (e.g. the 10K women's places) are not stored in the DB;
+    // the JSON's "badges": { name: { badge_en, badge_ko } } adds them.
+    if (e.badges) e.competitive.forEach(r => Object.assign(r, e.badges[r.name] || {}));
   }
   return data;
 }

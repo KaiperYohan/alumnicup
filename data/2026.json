@@ -106,7 +106,7 @@
           1.14,
           1.12,
           1.09,
-          1.07,
+          1.06,
           1.04,
           1.01,
           0.99,
@@ -122,27 +122,38 @@
           0.73,
           0.71,
           0.68,
-          0.66,
+          0.65,
           0.63,
-          0.61,
+          0.6,
           0.58,
           0.55,
           0.53,
           0.5
         ],
-        "place_bonus": {
-          "1": 1.77,
-          "2": 1.2,
-          "3": 1
-        },
+        "_women_bonus_note": "Women 1st +1.80, 2nd +1.20, 3rd +1.00. Not modelled by js/scoring.js: entered as points_override (rank points + bonus) on those runners.",
         "school_bonus": {
           "1": 3,
           "2": 2,
           "3": 1
-        }
+        },
+        "_school_bonus_note": "Awarded by average team time. js/scoring.js applies it by pre-bonus points; in 2026 both orders agree (Texas, Michigan, Wisconsin)."
       },
-      "rules_en": "- 40 runners (10 per school) — points by rank\n- Ranks 1-40 earn 1.50 down to 0.50 points\n- Individual place bonus: 1st +1.77, 2nd +1.20, 3rd +1.00\n- School bonus: 1st +3.00, 2nd +2.00, 3rd +1.00",
-      "rules_ko": "- 40명 참가 (학교당 10명) — 순위별 배점\n- 1~40위까지 1.50부터 0.50까지 차등 배점\n- 개인 순위 보너스: 1위 +1.77, 2위 +1.20, 3위 +1.00\n- 학교 보너스: 1위 +3.00, 2위 +2.00, 3위 +1.00"
+      "rules_en": "- 40 runners (10 per school) — points by rank\n- Ranks 1-40 earn 1.50 down to 0.50 points\n- Women’s bonus: 1st +1.80, 2nd +1.20, 3rd +1.00\n- School bonus by average time: 1st +3.00, 2nd +2.00, 3rd +1.00\n- 10K total: 50 points",
+      "rules_ko": "- 40명 참가 (학교당 10명) — 순위별 배점\n- 1~40위까지 1.50부터 0.50까지 차등 배점\n- 여자부 보너스: 1위 +1.80, 2위 +1.20, 3위 +1.00\n- 학교 평균 기록 보너스: 1위 +3.00, 2위 +2.00, 3위 +1.00\n- 10K 총점: 50점",
+      "badges": {
+        "신유진": {
+          "badge_en": "Women 1st",
+          "badge_ko": "여자 1위"
+        },
+        "최제현": {
+          "badge_en": "Women 2nd",
+          "badge_ko": "여자 2위"
+        },
+        "김지현": {
+          "badge_en": "Women 3rd",
+          "badge_ko": "여자 3위"
+        }
+      }
     }
   ],
   "photos": [
