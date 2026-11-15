@@ -290,16 +290,6 @@
       ]
     },
     {
-      "category_en": "🏃 10K Run",
-      "category_ko": "🏃 10K 마라톤",
-      "items": []
-    },
-    {
-      "category_en": "🏆 Award Ceremony",
-      "category_ko": "🏆 시상식",
-      "items": []
-    },
-    {
       "category_en": "🏃 10K — Group Photo",
       "category_ko": "🏃 10K — 단체 사진",
       "single": true,
@@ -334,6 +324,33 @@
           "src": "pic/2026/run-berkeley.jpg",
           "alt": "UC Berkeley alumni 10K team in front of Seoul Olympic Stadium",
           "position": "center 72%"
+        }
+      ]
+    },
+    {
+      "category_en": "🏅 10K — Individual Awards",
+      "category_ko": "🏅 10K — 개인 시상",
+      "items": [
+        {
+          "src": "pic/2026/run-award-1.jpg",
+          "alt": "10K individual winners receiving their awards",
+          "position": "center 65%"
+        }
+      ]
+    },
+    {
+      "category_en": "🏆 10K — Champions",
+      "category_ko": "🏆 10K — 우승",
+      "items": [
+        {
+          "src": "pic/2026/run-champions-1.jpg",
+          "alt": "University of Texas alumni with the Alumni Cup after winning 2026",
+          "position": "center 55%"
+        },
+        {
+          "src": "pic/2026/run-champions-2.jpg",
+          "alt": "Texas alumni lifting the Alumni Cup",
+          "position": "center 45%"
         }
       ]
     }
