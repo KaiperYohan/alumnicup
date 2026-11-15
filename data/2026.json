@@ -298,6 +298,17 @@
       "category_en": "🏆 Award Ceremony",
       "category_ko": "🏆 시상식",
       "items": []
+    },
+    {
+      "category_en": "🏃 10K — School Teams",
+      "category_ko": "🏃 10K — 학교별 사진",
+      "items": [
+        {
+          "src": "pic/2026/run-berkeley.jpg",
+          "alt": "UC Berkeley alumni 10K team in front of Seoul Olympic Stadium",
+          "position": "center 72%"
+        }
+      ]
     }
   ]
 }
