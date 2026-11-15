@@ -1197,6 +1197,8 @@ body.korean a.cta-button.lang-ko { display: inline-block !important; }
 .results-table .rank { width: 2.5rem; color: #888; font-weight: bold; }
 .results-table tr.winner td { background: #fff8f0; font-weight: 600; }
 .results-table tr[hidden] { display: none; }
+.results-table tr.unscored td { color: #888; background: #fafafa; }
+.results-table tr.unscored-first td { border-top: 2px solid #eee; }
 .badge-mini { display: inline-block; font-size: 0.72rem; font-weight: bold; background: #fce8f3; color: #a3195b; border-radius: 999px; padding: 0.05rem 0.5rem; margin-left: 0.3rem; vertical-align: 1px; }
 
 .match-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 0.9rem; }

@@ -39,8 +39,8 @@ const MARKERS = {
   champions: ['<!-- BUILD:CHAMPIONS -->', '<!-- /BUILD:CHAMPIONS -->'],
 };
 
-const { scoreEvent } = require('../js/scoring');
-const { fromDb } = require('../js/cup-data');
+const { scoreEvent, toSeconds } = require('../js/scoring');
+const { fromDb, formatTime } = require('../js/cup-data');
 
 const esc = s => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 // Round to 3dp and drop trailing zeros: 13.620 -> "13.62", 50.000 -> "50".
@@ -318,6 +318,16 @@ function renderEventSection(e, data) {
       h += `
               <tr data-school="${esc(r.school)}"${r.rank === 1 ? ' class="winner"' : ''}><td class="rank">${r.rank}</td><td>${r.rank === 1 ? '🏆 ' : ''}${esc(r.name)}${badge}</td><td>${both(esc(s.short_en || r.school), esc(s.short_ko || r.school))}</td><td class="num">${esc(isRun ? r.time : r.score)}</td>${pts ? `<td class="num">${fmt(r.points)}</td>` : ''}</tr>`;
     }
+    // Finishers outside their school's scored ten: time recorded, no rank or
+    // points. From the JSON's "unscored": [{ name, school, time }].
+    const unscored = (e.unscored || []).slice()
+      .sort((a, b) => (toSeconds(a.time ?? a.score) ?? 1e9) - (toSeconds(b.time ?? b.score) ?? 1e9));
+    unscored.forEach((r, i) => {
+      const s = S[r.school] || {};
+      const shown = isRun ? formatTime(r.time) : r.score;
+      h += `
+              <tr data-school="${esc(r.school)}" class="unscored${i === 0 ? ' unscored-first' : ''}"><td class="rank">–</td><td>${esc(r.name)} <span class="badge-mini">${both('Not scored', '순위 외')}</span></td><td>${both(esc(s.short_en || r.school), esc(s.short_ko || r.school))}</td><td class="num">${esc(shown)}</td>${pts ? '<td class="num">–</td>' : ''}</tr>`;
+    });
     h += `
             </tbody>
           </table>
