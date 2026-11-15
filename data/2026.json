@@ -300,6 +300,18 @@
       "items": []
     },
     {
+      "category_en": "🏃 10K — Group Photo",
+      "category_ko": "🏃 10K — 단체 사진",
+      "single": true,
+      "items": [
+        {
+          "src": "pic/2026/run-group.jpg",
+          "alt": "All four schools together after the 2026 Alumni Cup 10K at Seoul Olympic Stadium",
+          "position": "center 72%"
+        }
+      ]
+    },
+    {
       "category_en": "🏃 10K — School Teams",
       "category_ko": "🏃 10K — 학교별 사진",
       "items": [
