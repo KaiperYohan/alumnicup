@@ -36,6 +36,29 @@ if (localStorage.getItem('language') === 'ko') {
   });
 })();
 
+// Home hero: golf / 10K group photos. Auto-swaps every 7s until the visitor
+// picks one with the toggle (or never, if they prefer reduced motion).
+(function() {
+  var photos = document.querySelectorAll('[data-hero-photo]');
+  var buttons = document.querySelectorAll('[data-hero-show]');
+  if (!photos.length || !buttons.length) return;
+  var current = 'golf', timer = null;
+  function show(key) {
+    current = key;
+    photos.forEach(function(p) { p.classList.toggle('is-active', p.getAttribute('data-hero-photo') === key); });
+    buttons.forEach(function(b) { b.setAttribute('aria-pressed', b.getAttribute('data-hero-show') === key ? 'true' : 'false'); });
+  }
+  buttons.forEach(function(b) {
+    b.addEventListener('click', function() {
+      clearInterval(timer);
+      show(b.getAttribute('data-hero-show'));
+    });
+  });
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    timer = setInterval(function() { show(current === 'golf' ? 'run' : 'golf'); }, 7000);
+  }
+})();
+
 // Photo lightbox: tap any gallery photo to view it full size, then swipe or
 // use the arrow keys through the rest of that year's photos.
 (function() {

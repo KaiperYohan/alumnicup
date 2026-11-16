@@ -99,6 +99,8 @@
 
   <!-- Hero Section -->
   <section id="home" class="hero">
+    <div class="hero-photo hero-photo-golf is-active" data-hero-photo="golf" aria-hidden="true"></div>
+    <div class="hero-photo hero-photo-run" data-hero-photo="run" aria-hidden="true"></div>
     <a href="#results" class="champion">
       <span class="cup" aria-hidden="true">🏆</span>
       <span>
@@ -116,6 +118,12 @@
     <a href="apply.html" class="cta-button lang-ko">참가 신청하기</a>
     <a href="#about" class="cta-button secondary lang-en">Learn More</a>
     <a href="#about" class="cta-button secondary lang-ko">자세히 보기</a>
+    <div>
+      <div class="hero-switch" role="group" aria-label="Background photo">
+        <button type="button" data-hero-show="golf" aria-pressed="true"><span class="lang-en">⛳ Golf</span><span class="lang-ko">⛳ 골프</span></button>
+        <button type="button" data-hero-show="run" aria-pressed="false"><span class="lang-en">🏃 10K</span><span class="lang-ko">🏃 10K</span></button>
+      </div>
+    </div>
   </section>
 
   <!-- Cup race (generated: npm run build:results) -->
